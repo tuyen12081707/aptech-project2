@@ -9,14 +9,25 @@ package aptech.project2.entities;
  *
  * @author Admin
  */
-public class Customer {
-    
+public class Catalog extends BaseEntity{
     private int id;
     private String name;
-    private String phone;
-    private String address;
-    private int discount;
-    private int salePoint;
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     
     
 }
