@@ -28,11 +28,6 @@ public class Catalog extends BaseEntity{
     public void setName(String name) {
         this.name = name;
     }
-
-    public Catalog(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
     
     
 }
