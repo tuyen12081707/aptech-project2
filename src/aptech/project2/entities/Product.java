@@ -17,10 +17,29 @@ public class Product extends BaseEntity {
     private String name;
     private double price;
     private String content;
-    private ProductDiscount discount;
+    private float discount;
     private String imageLink;
     private String imageList;
     private int view;
+
+    public Product(int id, Catalog catalog, String name, double price, String content, float discount, String imageLink, String imageList, int view) {
+        this.id = id;
+        this.catalog = catalog;
+        this.name = name;
+        this.price = price;
+        this.content = content;
+        this.discount = discount;
+        this.imageLink = imageLink;
+        this.imageList = imageList;
+        this.view = view;
+    }
+
+    
+
+    public Product() {
+    }
+    
+    
     
     public int getId() {
         return id;
@@ -62,11 +81,11 @@ public class Product extends BaseEntity {
         this.content = content;
     }
 
-    public ProductDiscount getDiscount() {
+    public float getDiscount() {
         return discount;
     }
 
-    public void setDiscount(ProductDiscount discount) {
+    public void setDiscount(float discount) {
         this.discount = discount;
     }
 

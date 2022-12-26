@@ -4,14 +4,12 @@
  * and open the template in the editor.
  */
 package aptech.project2.entities;
-
-
+import java.util.Date;
 /**
  *
  * @author Admin
  */
 
-import java.util.Date;
 
 public class BaseEntity {
 

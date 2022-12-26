@@ -15,7 +15,7 @@ public interface BaseDAO<T> {
     boolean create(T object) throws Exception;
 
     boolean update(T object) throws Exception;
-
+    
     boolean deleteById(int id) throws Exception;
 
     T findById(int id) throws Exception;
