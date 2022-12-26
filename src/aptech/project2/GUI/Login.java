@@ -223,6 +223,8 @@ public class Login extends javax.swing.JFrame {
             try {
                 this.user = dao.findByName(username);
                 JOptionPane.showMessageDialog(null, "Login sucessfully");
+                
+                
             } catch (Exception ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
