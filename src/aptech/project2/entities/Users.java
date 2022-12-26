@@ -12,18 +12,25 @@ package aptech.project2.entities;
 public class Users extends BaseEntity{
     private int id;
     private String name;
+    private String email;
     private String phone;
     private String address;
+    private int role;
+    private String password;
 
-    public Users(int id, String name, String phone, String address) {
+    public Users(int id, String name, String email, String phone, String address, int role, String password) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.phone = phone;
         this.address = address;
+        this.role = role;
+        this.password = password;
     }
 
     public Users() {
     }
+    
     
     
 
@@ -43,6 +50,14 @@ public class Users extends BaseEntity{
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPhone() {
         return phone;
     }
@@ -58,6 +73,20 @@ public class Users extends BaseEntity{
     public void setAddress(String address) {
         this.address = address;
     }
-    
-    
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
