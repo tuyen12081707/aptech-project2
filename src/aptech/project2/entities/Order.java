@@ -18,6 +18,9 @@ public class Order {
     private String data;
     private int status;
 
+    public Order() {
+    }
+
     public int getId() {
         return id;
     }

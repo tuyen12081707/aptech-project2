@@ -127,7 +127,7 @@ public class UserDAO implements IUserDAO{
         List<Users> allusers = new ArrayList<>();
         try {
             con = DBConnection.getConnection();
-            stm = con.prepareStatement("slect * from user");
+            stm = con.prepareStatement("select * from user");
             rs = stm.executeQuery();
 
             while(rs.next()){
