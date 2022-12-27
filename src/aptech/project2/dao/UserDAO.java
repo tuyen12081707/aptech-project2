@@ -96,10 +96,10 @@ public class UserDAO implements IUserDAO{
         Users userbyid = new Users();
         try {
             con = DBConnection.getConnection();
-            stm = con.prepareStatement("slect * from user where id = ?");
+            stm = con.prepareStatement("select * from user where id = ?");
             rs = stm.executeQuery();
             stm.setInt(1, id);
-            if(stm.executeUpdate() > 0){
+            while(rs.next()){
                int iduser = rs.getInt("id");
                String name = rs.getString("name");
                String email = rs.getString("email");
@@ -149,7 +149,7 @@ public class UserDAO implements IUserDAO{
         }
     }
     
-     public boolean existUser(String name, String password){
+    public boolean existUser(String name, String password){
         Connection con = null;
         PreparedStatement stm =null;
         ResultSet rs = null;
@@ -159,6 +159,29 @@ public class UserDAO implements IUserDAO{
             stm = con.prepareStatement("select * from user where name = ? and password = ?");
             stm.setString(1,name);
             stm.setString(2, password);
+            rs = stm.executeQuery();
+
+            return rs.next();
+            
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            DBConnection.closeConnection();
+        }
+
+    }
+     
+     
+    public boolean existUser(String name){
+        Connection con = null;
+        PreparedStatement stm =null;
+        ResultSet rs = null;
+
+        try {
+            con = DBConnection.getConnection();
+            stm = con.prepareStatement("select * from user where name = ?");
+            stm.setString(1,name);
+         
             rs = stm.executeQuery();
 
             return rs.next();
@@ -201,4 +224,6 @@ public class UserDAO implements IUserDAO{
             DBConnection.closeConnection();
         }
     }
+    
+     
 }
