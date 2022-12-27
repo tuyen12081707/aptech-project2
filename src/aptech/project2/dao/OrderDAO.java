@@ -130,7 +130,7 @@ public class OrderDAO implements IOrderDAO {
         List<Order> allOrders = new ArrayList<>();
         try {
             con = DBConnection.getConnection();
-            stm = con.prepareStatement("slect * from orders");
+            stm = con.prepareStatement("select * from orders");
             rs = stm.executeQuery();
 
             while (rs.next()) {
