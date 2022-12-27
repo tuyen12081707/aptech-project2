@@ -8,9 +8,8 @@ package aptech.project2.dao;
 import aptech.project2.entities.Transaction;
 
 /**
- *
  * @author protu
  */
-public interface ITransactionDAO extends BaseDAO<Transaction>{
-    
+public interface ITransactionDAO extends BaseDAO<Transaction> {
+
 }

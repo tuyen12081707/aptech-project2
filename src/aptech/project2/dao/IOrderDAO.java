@@ -8,9 +8,8 @@ package aptech.project2.dao;
 import aptech.project2.entities.Order;
 
 /**
- *
  * @author Admin
  */
-public interface IOrderDAO extends BaseDAO<Order>{
-    
+public interface IOrderDAO extends BaseDAO<Order> {
+
 }

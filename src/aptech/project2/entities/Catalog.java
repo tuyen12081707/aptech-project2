@@ -6,10 +6,9 @@
 package aptech.project2.entities;
 
 /**
- *
  * @author Admin
  */
-public class Catalog extends BaseEntity{
+public class Catalog extends BaseEntity {
     private int id;
     private String name;
 
@@ -28,6 +27,6 @@ public class Catalog extends BaseEntity{
     public void setName(String name) {
         this.name = name;
     }
-    
-    
+
+
 }

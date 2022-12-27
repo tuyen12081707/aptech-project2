@@ -6,10 +6,9 @@
 package aptech.project2.entities;
 
 /**
- *
  * @author Admin
  */
-public class Users extends BaseEntity{
+public class Users extends BaseEntity {
     private int id;
     private String name;
     private String email;
@@ -18,7 +17,7 @@ public class Users extends BaseEntity{
     private int role;
     private String password;
 
-    public Users(String name, String email, String phone, String address, int role, String password) {  
+    public Users(String name, String email, String phone, String address, int role, String password) {
         this.name = name;
         this.email = email;
         this.phone = phone;
@@ -36,15 +35,11 @@ public class Users extends BaseEntity{
         this.role = role;
         this.password = password;
     }
-    
-    
-    
+
 
     public Users() {
     }
-    
-    
-    
+
 
     public int getId() {
         return id;
