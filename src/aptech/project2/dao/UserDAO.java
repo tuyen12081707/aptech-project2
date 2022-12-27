@@ -107,8 +107,9 @@ public class UserDAO implements IUserDAO {
                 String address = rs.getString("address");
                 int role = rs.getInt("role");
                 String password = rs.getString("password");
+                String username = rs.getString("username");
 
-                userbyid = new Users(iduser, name, email, phone, address, role, password);
+                userbyid = new Users(iduser, name, email, phone, address, role, password, username);
             }
             return userbyid;
         } catch (SQLException e) {
@@ -138,8 +139,9 @@ public class UserDAO implements IUserDAO {
                 String address = rs.getString("address");
                 int role = rs.getInt("role");
                 String password = rs.getString("password");
+                String username = rs.getString("username");
 
-                allusers.add(new Users(iduser, name, email, phone, address, role, password));
+                allusers.add(new Users(iduser, name, email, phone, address, role, password, username));
             }
             return allusers;
         } catch (SQLException e) {
@@ -169,8 +171,9 @@ public class UserDAO implements IUserDAO {
                 String address = rs.getString("address");
                 int role = rs.getInt("role");
                 String password = rs.getString("password");
+                String username = rs.getString("username");
 
-                userbyid = new Users(iduser, nameuser, email, phone, address, role, password);
+                userbyid = new Users(iduser, nameuser, email, phone, address, role, password, username);
             }
             return userbyid;
         } catch (SQLException e) {
@@ -181,8 +184,7 @@ public class UserDAO implements IUserDAO {
     }
 
 
-    @Override
-    public boolean exitsUser(String username) throws Exception {
+    public boolean existUser(String username){
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -190,6 +192,27 @@ public class UserDAO implements IUserDAO {
         try {
             con = DBConnection.getConnection();
             stm = con.prepareStatement("select * from user where name = ?");
+            stm.setString(1, username);
+
+            rs = stm.executeQuery();
+
+            return rs.next();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBConnection.closeConnection();
+        }
+    }
+
+    public boolean existUser(String username, String password){
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            con = DBConnection.getConnection();
+            stm = con.prepareStatement("select * from user where name = ? and password = ?");
             stm.setString(1, username);
 
             rs = stm.executeQuery();

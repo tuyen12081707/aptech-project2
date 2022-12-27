@@ -22,8 +22,6 @@ public class UserServiceImpl implements UserService {
         ValidateCommon.validateNullObject(users.getName(), "Name");
         ValidateCommon.validateNullObject(users.getPassword(), "Password");
         ValidateCommon.validateNullObject(users.getRole(), "Role");
-        if (this.iUserDAO.exitsUser(users.getName()))
-            throw new CommonException("Username đã tồn tại");
         return this.iUserDAO.create(users);
     }
 

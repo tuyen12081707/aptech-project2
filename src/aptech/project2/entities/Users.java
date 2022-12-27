@@ -18,6 +18,16 @@ public class Users extends BaseEntity {
     private int role;
     private String password;
 
+    public Users(String name, String email, String phone, String address, int role, String password, String username) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.role = role;
+        this.password = password;
+        this.username = username;
+    }
+
     public Users(String name, String email, String phone, String address, int role, String password) {
         this.name = name;
         this.email = email;
@@ -28,7 +38,7 @@ public class Users extends BaseEntity {
         this.username = username;
     }
 
-    public Users(int id, String name, String email, String phone, String address, int role, String password) {
+    public Users(int id, String name, String email, String phone, String address, int role, String password, String username) {
         this.id = id;
         this.name = name;
         this.email = email;
