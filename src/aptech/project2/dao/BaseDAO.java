@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 package aptech.project2.dao;
+
 import java.util.List;
 
 /**
- *
  * @author Admin
  */
 public interface BaseDAO<T> {
@@ -21,5 +21,5 @@ public interface BaseDAO<T> {
     T findById(int id) throws Exception;
 
     List<T> findAll() throws Exception;
-    
+
 }

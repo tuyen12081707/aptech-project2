@@ -6,7 +6,6 @@
 package aptech.project2;
 
 /**
- *
  * @author Admin
  */
 public class AptechProject2 {
@@ -17,5 +16,5 @@ public class AptechProject2 {
     public static void main(String[] args) {
         // TODO code application logic here
     }
-    
+
 }

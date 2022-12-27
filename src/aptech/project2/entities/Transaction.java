@@ -6,10 +6,9 @@
 package aptech.project2.entities;
 
 /**
- *
  * @author Admin
  */
-public class Transaction extends BaseEntity{
+public class Transaction extends BaseEntity {
     private int id;
     private int status;
     private Users user;
@@ -73,5 +72,5 @@ public class Transaction extends BaseEntity{
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
 }

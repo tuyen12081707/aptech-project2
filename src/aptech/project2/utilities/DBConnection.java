@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Admin
  */
 public class DBConnection {
@@ -29,21 +28,16 @@ public class DBConnection {
 //                System.out.println("Connecting...");
 //                conn = DriverManager.getConnection(url, username, password);
 //                System.out.println(conn);
-                
+
                 return DriverManager.getConnection("jdbc:mysql://localhost:3306/salescar", "root", "");
             }
-        } catch (SQLException  ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return conn;
-
         }
+        return conn;
 
-    
+    }
 
-    
-
-    
 
     public static void closeConnection() {
         try {

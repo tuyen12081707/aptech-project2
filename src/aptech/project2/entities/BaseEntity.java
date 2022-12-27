@@ -7,7 +7,6 @@ package aptech.project2.entities;
 
 
 /**
- *
  * @author Admin
  */
 

@@ -7,6 +7,7 @@ package aptech.project2.dao;
 
 import aptech.project2.entities.Order;
 import aptech.project2.utilities.DBConnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author Admin
  */
 public class OrderDAO implements IOrderDAO {

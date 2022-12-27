@@ -6,7 +6,6 @@
 package aptech.project2.entities;
 
 /**
- *
  * @author Admin
  */
 public class Order {
@@ -86,10 +85,10 @@ public class Order {
         this.data = data;
         this.status = status;
     }
-    
+
     @Override
     public String toString() {
         return "Order{" + "id=" + id + ", transaction=" + transaction + ", product=" + product + ", Quantity=" + Quantity + ", amount=" + amount + ", data=" + data + ", status=" + status + '}';
     }
-    
+
 }

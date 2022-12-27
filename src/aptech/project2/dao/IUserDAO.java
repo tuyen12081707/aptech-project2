@@ -8,9 +8,8 @@ package aptech.project2.dao;
 import aptech.project2.entities.Users;
 
 /**
- *
  * @author Hoang Son
  */
-public interface IUserDAO extends BaseDAO<Users>{
-    
+public interface IUserDAO extends BaseDAO<Users> {
+
 }

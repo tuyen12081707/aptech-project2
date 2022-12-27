@@ -6,17 +6,17 @@
 package aptech.project2.dao;
 
 import aptech.project2.entities.Product;
+
 import java.util.List;
 
 /**
- *
  * @author DQT
  */
-public class ProductDAO implements IProductDAO{
+public class ProductDAO implements IProductDAO {
 
     @Override
     public boolean create(Product object) throws Exception {
-        
+
         return false;
     }
 
@@ -39,5 +39,5 @@ public class ProductDAO implements IProductDAO{
     public List<Product> findAll() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
