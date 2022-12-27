@@ -11,5 +11,5 @@ import aptech.project2.entities.Users;
  * @author Hoang Son
  */
 public interface IUserDAO extends BaseDAO<Users> {
-
+    boolean exitsUser(String username) throws Exception;
 }

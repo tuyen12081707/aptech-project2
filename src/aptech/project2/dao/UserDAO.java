@@ -149,51 +149,6 @@ public class UserDAO implements IUserDAO {
         }
     }
 
-    public boolean existUser(String name, String password) {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-
-        try {
-            con = DBConnection.getConnection();
-            stm = con.prepareStatement("select * from user where name = ? and password = ?");
-            stm.setString(1, name);
-            stm.setString(2, password);
-            rs = stm.executeQuery();
-
-            return rs.next();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnection.closeConnection();
-        }
-
-    }
-
-
-    public boolean existUser(String name) {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-
-        try {
-            con = DBConnection.getConnection();
-            stm = con.prepareStatement("select * from user where name = ?");
-            stm.setString(1, name);
-
-            rs = stm.executeQuery();
-
-            return rs.next();
-
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            DBConnection.closeConnection();
-        }
-
-    }
-
     public Users findByName(String name) throws Exception {
         Connection con = null;
         PreparedStatement stm = null;
@@ -226,4 +181,25 @@ public class UserDAO implements IUserDAO {
     }
 
 
+    @Override
+    public boolean exitsUser(String username) throws Exception {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            con = DBConnection.getConnection();
+            stm = con.prepareStatement("select * from user where name = ?");
+            stm.setString(1, username);
+
+            rs = stm.executeQuery();
+
+            return rs.next();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            DBConnection.closeConnection();
+        }
+    }
 }
