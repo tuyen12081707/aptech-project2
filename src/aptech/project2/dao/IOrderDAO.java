@@ -3,18 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aptech.project2;
+package aptech.project2.dao;
+
+import aptech.project2.entities.Order;
 
 /**
  * @author Admin
  */
-public class AptechProject2 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public interface IOrderDAO extends BaseDAO<Order> {
 
 }

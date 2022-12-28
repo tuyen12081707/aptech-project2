@@ -6,10 +6,9 @@
 package aptech.project2.entities;
 
 /**
- *
  * @author Admin
  */
-public class Transaction extends BaseEntity{
+public class Transaction extends BaseEntity {
     private int id;
     private int status;
     private Users user;
@@ -18,22 +17,6 @@ public class Transaction extends BaseEntity{
     private String paymentInfo;
     private String message;
 
-    public Transaction() {
-    }
-    
-    
-
-    public Transaction(int id, int status, Users user, int amount, String payment, String paymentInfo, String message) {
-        this.id = id;
-        this.status = status;
-        this.user = user;
-        this.amount = amount;
-        this.payment = payment;
-        this.paymentInfo = paymentInfo;
-        this.message = message;
-    }
-
-    
     public int getId() {
         return id;
     }
@@ -89,5 +72,5 @@ public class Transaction extends BaseEntity{
     public void setMessage(String message) {
         this.message = message;
     }
-    
+
 }

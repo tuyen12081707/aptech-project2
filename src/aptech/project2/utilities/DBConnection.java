@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author Admin
  */
 public class DBConnection {
@@ -22,26 +21,23 @@ public class DBConnection {
     public static Connection getConnection() {
         try {
             if (conn == null || conn.isClosed()) {
-                Class.forName("com.mysql.jdbc.Driver");
-                String url = "jdbc:mysql://localhost:3306/salescar?useSSL=false";
-                String username = "root";
-                String password = "";
-                System.out.println("Connecting...");
-                conn = DriverManager.getConnection(url, username, password);
-                System.out.println(conn);
+//                Class.forName("com.mysql.jdbc.Driver");
+//                String url = "jdbc:mysql://localhost:3306/salescar?useSSL=false";
+//                String username = "root";
+//                String password = "";
+//                System.out.println("Connecting...");
+//                conn = DriverManager.getConnection(url, username, password);
+//                System.out.println(conn);
+
+                return DriverManager.getConnection("jdbc:mysql://localhost:3306/salescar", "root", "");
             }
-        } catch (SQLException  | ClassNotFoundException  ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(DBConnection.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return conn;
-
         }
+        return conn;
 
-    
+    }
 
-    
-
-    
 
     public static void closeConnection() {
         try {

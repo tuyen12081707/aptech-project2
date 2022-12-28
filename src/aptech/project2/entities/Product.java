@@ -6,7 +6,6 @@
 package aptech.project2.entities;
 
 /**
- *
  * @author Admin
  */
 public class Product extends BaseEntity {
@@ -22,25 +21,6 @@ public class Product extends BaseEntity {
     private String imageList;
     private int view;
 
-    public Product(int id, Catalog catalog, String name, double price, String content, float discount, String imageLink, String imageList, int view) {
-        this.id = id;
-        this.catalog = catalog;
-        this.name = name;
-        this.price = price;
-        this.content = content;
-        this.discount = discount;
-        this.imageLink = imageLink;
-        this.imageList = imageList;
-        this.view = view;
-    }
-
-    
-
-    public Product() {
-    }
-    
-    
-    
     public int getId() {
         return id;
     }
@@ -112,6 +92,6 @@ public class Product extends BaseEntity {
     public void setView(int view) {
         this.view = view;
     }
-    
-    
+
+
 }

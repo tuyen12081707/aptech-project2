@@ -1,6 +1,5 @@
 package aptech.project2.dao;
 
-
 import aptech.project2.entities.Catalog;
 import aptech.project2.entities.Product;
 import aptech.project2.utilities.DBConnection;
@@ -160,4 +159,5 @@ public class ProductDAO implements IProductDAO {
         return p;
 
     }
+
 }
