@@ -68,9 +68,6 @@
           <Color blue="33" green="33" red="ff" type="rgb"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="D:\program files\NetBeansProject\img\car_png.png"/>
-        </Property>
       </Properties>
     </Component>
   </SubComponents>
