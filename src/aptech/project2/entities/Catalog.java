@@ -33,6 +33,11 @@ public class Catalog extends BaseEntity{
         this.id = id;
         this.name = name;
     }
+
+    public Catalog() {
+    }
+    
+    
     
     
 }
