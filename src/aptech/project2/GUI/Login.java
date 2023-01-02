@@ -5,10 +5,8 @@
  */
 package aptech.project2.GUI;
 
-import aptech.project2.dao.UserDAO;
 import aptech.project2.entities.Users;
 import aptech.project2.service.AuthService;
-import aptech.project2.service.impl.AuthServiceImpl;
 import java.awt.Graphics2D;
 
 import javax.swing.*;
@@ -27,9 +25,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
     }
 
-    UserDAO dao = new UserDAO();
 
-    Users user = new Users();
 
 
     /**
@@ -233,30 +229,20 @@ public class Login extends javax.swing.JFrame {
         Users u = new Users();
         u.setUsername(username);
         u.setPassword(password);
-        AuthService auth = new AuthServiceImpl();
         try {
             
-            if(auth.login(u)){
-                    this.dispose();
-              CarMangerment cm = new CarMangerment();
-              cm.setVisible(true);
-            }else{
-                JOptionPane.showMessageDialog(null,"thất bại" );
-            }
+//            if(auth.login(u)){
+//                    this.dispose();
+//              CarMangerment cm = new CarMangerment();
+//              cm.setVisible(true);
+//            }else{
+//                JOptionPane.showMessageDialog(null,"thất bại" );
+//            }
         } catch (Exception ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-//        if (dao.existUser(username, password)) {
-//            try {
-//                this.user = dao.findByName(username);
-//                JOptionPane.showMessageDialog(null, "Login sucessfully");
-//            } catch (Exception ex) {
-//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Wrong username or password");
-//        }
+
     }//GEN-LAST:event_btn_loginActionPerformed
 
     /**
