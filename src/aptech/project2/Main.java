@@ -6,8 +6,6 @@
 package aptech.project2;
 
 import aptech.project2.entities.Users;
-import aptech.project2.service.UserService;
-import aptech.project2.service.impl.UserServiceImpl;
 import aptech.project2.utilities.DBConnection;
 
 import java.sql.Connection;
@@ -24,12 +22,7 @@ public class Main {
         if (conn != null) {
             System.out.println("kết nối thành công");
         }
-        Users u = new Users("Thành", "thanhnt@gamil.com", "0192191919", "HN", 1, "123", "admin");
-
-        UserService user = new UserServiceImpl();
-        if (user.create(u)){
-            System.out.println("Thêm mới thành công");
-        }
+       
     }
 
 
