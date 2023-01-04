@@ -96,6 +96,15 @@ import javax.persistence.criteria.Root;
             }
         }
     }
+    
+    
+    public int checkLogin(User user){
+        
+        
+        
+        
+        return 0;
+    }
 
     public List<User> findUserEntities() {
         return findUserEntities(true, -1, -1);

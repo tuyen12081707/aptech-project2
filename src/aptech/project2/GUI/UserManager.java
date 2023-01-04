@@ -34,6 +34,7 @@ public class UserManager extends javax.swing.JFrame {
      */
     public UserManager() {
         initComponents();
+        this.loadData();
     }
 
     /**
