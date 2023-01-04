@@ -46,10 +46,6 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Transaction.findByMessage", query = "SELECT t FROM Transaction t WHERE t.message = :message")
     , @NamedQuery(name = "Transaction.findByCreatedAt", query = "SELECT t FROM Transaction t WHERE t.createdAt = :createdAt")
     , @NamedQuery(name = "Transaction.findByUpdateAt", query = "SELECT t FROM Transaction t WHERE t.updateAt = :updateAt")
-
-    ,@NamedQuery(name = "Transaction.getTransactionByUserId",
-            query = "SELECT t.id,u.username,t.status,t.amount,t.payment,t.paymentInfo,t.message,t.createdAt FROM Transaction t LEFT JOIN user u on t.userId = u.id ")
-
 })
 public class Transaction implements Serializable {
 

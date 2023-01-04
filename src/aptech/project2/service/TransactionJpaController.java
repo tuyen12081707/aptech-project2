@@ -43,22 +43,7 @@ public class TransactionJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public List<Transaction> getTransactionByUserId(int id) {
-        EntityManager em = null;
-        em = getEntityManager();
-        try {
-            em = getEntityManager();
-            Query query = em.createQuery(
-                    "SELECT u.username FROM Transaction t LEFT JOIN User u on t.userId =: id", Transaction.class);
-            query.setParameter("id", id);
-            return query.getResultList();
-        } finally {
-            if (em != null) {
-                em.close();
-            }
-        }
 
-    }
 
     public void create(Transaction transaction) {
         EntityManager em = null;

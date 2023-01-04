@@ -448,17 +448,17 @@ public class TransactionMangerment extends javax.swing.JFrame {
         List<Transaction> transactions = TransactionJpaController.getInstance().findTransactionEntities();
         DefaultTableModel tableModel = (DefaultTableModel) tblTransaction.getModel();
         tableModel.setRowCount(0);
-
-        transactions.stream().forEach(u -> {
-            String status = u.getStatus() == 1 ? "Đã Thanh Toán" : "Chưa Thanh Toán";
-            List<Transaction> transactionsUser = TransactionJpaController.getInstance().getTransactionByUserId(u.getUserId().getId());
-            transactionsUser.stream().forEach(T -> {
-                Object[] rowData = new Object[]{
-                    u.getId(), u.getUserId(),T.getUserId()
-                };
-                tableModel.addRow(rowData);
-            });
-        });
+//
+//        transactions.stream().forEach(u -> {
+//            String status = u.getStatus() == 1 ? "Đã Thanh Toán" : "Chưa Thanh Toán";
+//            List<Transaction> transactionsUser = TransactionJpaController.getInstance().getTransactionByUserId(u.getUserId().getId());
+//            transactionsUser.stream().forEach(T -> {
+//                Object[] rowData = new Object[]{
+//                    u.getId(), u.getUserId(),T.getUserId()
+//                };
+//                tableModel.addRow(rowData);
+//            });
+//        });
     }
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:

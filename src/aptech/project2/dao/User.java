@@ -42,6 +42,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByCreatedAt", query = "SELECT u FROM User u WHERE u.createdAt = :createdAt")
+    , @NamedQuery(name = "User.login", query = "SELECT u FROM User u WHERE u.username = :username and u.password = :password")
     , @NamedQuery(name = "User.findByUpdateAt", query = "SELECT u FROM User u WHERE u.updateAt = :updateAt")})
 public class User implements Serializable {
 
@@ -216,5 +217,5 @@ public class User implements Serializable {
     public String toString() {
         return "aptech.project2.dao.User[ id=" + id + " ]";
     }
-    
+
 }
