@@ -6,6 +6,7 @@
 package aptech.project2.service;
 
 import aptech.project2.dao.Transaction;
+import aptech.project2.dao.User;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -39,6 +41,23 @@ public class TransactionJpaController implements Serializable {
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+
+    public List<Transaction> getTransactionByUserId(int id) {
+        EntityManager em = null;
+        em = getEntityManager();
+        try {
+            em = getEntityManager();
+            Query query = em.createQuery(
+                    "SELECT u.username FROM Transaction t LEFT JOIN User u on t.userId =: id", Transaction.class);
+            query.setParameter("id", id);
+            return query.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
     }
 
     public void create(Transaction transaction) {
@@ -103,8 +122,29 @@ public class TransactionJpaController implements Serializable {
         return findTransactionEntities(true, -1, -1);
     }
 
+    public List<Transaction> findTransactionByUserId() {
+        return findTransactionByUserId(false, -1, -1);
+
+    }
+
     public List<Transaction> findTransactionEntities(int maxResults, int firstResult) {
         return findTransactionEntities(false, maxResults, firstResult);
+    }
+
+    private List<Transaction> findTransactionByUserId(boolean all, int maxResults, int firstResult) {
+        EntityManager em = getEntityManager();
+        try {
+            CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(Transaction.class));
+            Query q = em.createQuery(cq);
+            if (!all) {
+                q.setMaxResults(maxResults);
+                q.setFirstResult(firstResult);
+            }
+            return q.getResultList();
+        } finally {
+            em.close();
+        }
     }
 
     private List<Transaction> findTransactionEntities(boolean all, int maxResults, int firstResult) {

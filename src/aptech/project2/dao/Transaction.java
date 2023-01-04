@@ -22,9 +22,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Query;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.TypedQuery;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -43,7 +45,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Transaction.findByPayment", query = "SELECT t FROM Transaction t WHERE t.payment = :payment")
     , @NamedQuery(name = "Transaction.findByMessage", query = "SELECT t FROM Transaction t WHERE t.message = :message")
     , @NamedQuery(name = "Transaction.findByCreatedAt", query = "SELECT t FROM Transaction t WHERE t.createdAt = :createdAt")
-    , @NamedQuery(name = "Transaction.findByUpdateAt", query = "SELECT t FROM Transaction t WHERE t.updateAt = :updateAt")})
+    , @NamedQuery(name = "Transaction.findByUpdateAt", query = "SELECT t FROM Transaction t WHERE t.updateAt = :updateAt")
+
+    ,@NamedQuery(name = "Transaction.getTransactionByUserId",
+            query = "SELECT t.id,u.username,t.status,t.amount,t.payment,t.paymentInfo,t.message,t.createdAt FROM Transaction t LEFT JOIN user u on t.userId = u.id ")
+
+})
 public class Transaction implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -206,5 +213,5 @@ public class Transaction implements Serializable {
     public String toString() {
         return "aptech.project2.dao.Transaction[ id=" + id + " ]";
     }
-    
+
 }

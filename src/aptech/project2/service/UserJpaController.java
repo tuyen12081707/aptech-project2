@@ -5,6 +5,7 @@
  */
 package aptech.project2.service;
 
+import aptech.project2.dao.Transaction;
 import aptech.project2.dao.User;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
@@ -21,7 +22,7 @@ import javax.persistence.criteria.Root;
  *
  * @author Admin
  */
- public class UserJpaController implements Serializable {
+public class UserJpaController implements Serializable {
 
     private static UserJpaController instance;
     private EntityManagerFactory emf = null;
@@ -29,12 +30,14 @@ import javax.persistence.criteria.Root;
     private UserJpaController() {
         this.emf = JPAUtil.getInstance().getFactory();
     }
-    public static UserJpaController getInstance(){
-        if(instance == null){
+
+    public static UserJpaController getInstance() {
+        if (instance == null) {
             instance = new UserJpaController();
         }
-        return instance; 
+        return instance;
     }
+
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
@@ -51,6 +54,23 @@ import javax.persistence.criteria.Root;
                 em.close();
             }
         }
+    }
+
+    public List<User> getUserById(int userId) {
+        EntityManager em = null;
+        em = getEntityManager();
+        try {
+            em = getEntityManager();
+            Query query = em.createQuery(
+                    "SELECT u.username FROM User u LEFT JOIN transaction t on u.id=: t.userId", Transaction.class);
+            query.setParameter("userId", userId);
+            return query.getResultList();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+
     }
 
     public void edit(User user) throws NonexistentEntityException, Exception {
