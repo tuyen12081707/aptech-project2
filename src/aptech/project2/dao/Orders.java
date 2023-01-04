@@ -13,7 +13,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -29,8 +31,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Orders.findAll", query = "SELECT o FROM Orders o")
     , @NamedQuery(name = "Orders.findById", query = "SELECT o FROM Orders o WHERE o.id = :id")
-    , @NamedQuery(name = "Orders.findByTransactionId", query = "SELECT o FROM Orders o WHERE o.transactionId = :transactionId")
-    , @NamedQuery(name = "Orders.findByProductId", query = "SELECT o FROM Orders o WHERE o.productId = :productId")
     , @NamedQuery(name = "Orders.findByQuantity", query = "SELECT o FROM Orders o WHERE o.quantity = :quantity")
     , @NamedQuery(name = "Orders.findByAmount", query = "SELECT o FROM Orders o WHERE o.amount = :amount")
     , @NamedQuery(name = "Orders.findByStatus", query = "SELECT o FROM Orders o WHERE o.status = :status")})
@@ -42,12 +42,6 @@ public class Orders implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "transaction_id")
-    private int transactionId;
-    @Basic(optional = false)
-    @Column(name = "product_id")
-    private int productId;
     @Basic(optional = false)
     @Column(name = "quantity")
     private int quantity;
@@ -62,6 +56,12 @@ public class Orders implements Serializable {
     @Basic(optional = false)
     @Column(name = "status")
     private short status;
+    @JoinColumn(name = "transaction_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Transaction transactionId;
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Product productId;
 
     public Orders() {
     }
@@ -70,10 +70,8 @@ public class Orders implements Serializable {
         this.id = id;
     }
 
-    public Orders(Integer id, int transactionId, int productId, int quantity, BigDecimal amount, String data, short status) {
+    public Orders(Integer id, int quantity, BigDecimal amount, String data, short status) {
         this.id = id;
-        this.transactionId = transactionId;
-        this.productId = productId;
         this.quantity = quantity;
         this.amount = amount;
         this.data = data;
@@ -86,22 +84,6 @@ public class Orders implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getTransactionId() {
-        return transactionId;
-    }
-
-    public void setTransactionId(int transactionId) {
-        this.transactionId = transactionId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
 
     public int getQuantity() {
@@ -134,6 +116,22 @@ public class Orders implements Serializable {
 
     public void setStatus(short status) {
         this.status = status;
+    }
+
+    public Transaction getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(Transaction transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public Product getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Product productId) {
+        this.productId = productId;
     }
 
     @Override

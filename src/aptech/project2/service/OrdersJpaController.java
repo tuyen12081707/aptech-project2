@@ -7,6 +7,7 @@ package aptech.project2.service;
 
 import aptech.project2.dao.Orders;
 import aptech.project2.service.exceptions.NonexistentEntityException;
+import aptech.project2.utilities.JPAUtil;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -22,13 +23,22 @@ import javax.persistence.criteria.Root;
  */
 public class OrdersJpaController implements Serializable {
 
-    public OrdersJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
     private EntityManagerFactory emf = null;
+    private static OrdersJpaController instance;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
+    }
+
+    private OrdersJpaController() {
+        this.emf = JPAUtil.getInstance().getFactory();
+    }
+
+    public static OrdersJpaController getInstance() {
+        if (instance == null) {
+            instance = new OrdersJpaController();
+        }
+        return instance;
     }
 
     public void create(Orders orders) {
@@ -134,5 +144,5 @@ public class OrdersJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

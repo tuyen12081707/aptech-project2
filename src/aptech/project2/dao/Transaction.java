@@ -7,20 +7,26 @@ package aptech.project2.dao;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -33,7 +39,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Transaction.findAll", query = "SELECT t FROM Transaction t")
     , @NamedQuery(name = "Transaction.findById", query = "SELECT t FROM Transaction t WHERE t.id = :id")
     , @NamedQuery(name = "Transaction.findByStatus", query = "SELECT t FROM Transaction t WHERE t.status = :status")
-    , @NamedQuery(name = "Transaction.findByUserId", query = "SELECT t FROM Transaction t WHERE t.userId = :userId")
     , @NamedQuery(name = "Transaction.findByAmount", query = "SELECT t FROM Transaction t WHERE t.amount = :amount")
     , @NamedQuery(name = "Transaction.findByPayment", query = "SELECT t FROM Transaction t WHERE t.payment = :payment")
     , @NamedQuery(name = "Transaction.findByMessage", query = "SELECT t FROM Transaction t WHERE t.message = :message")
@@ -50,9 +55,6 @@ public class Transaction implements Serializable {
     @Basic(optional = false)
     @Column(name = "status")
     private short status;
-    @Basic(optional = false)
-    @Column(name = "user_id")
-    private int userId;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "amount")
@@ -75,6 +77,11 @@ public class Transaction implements Serializable {
     @Column(name = "update_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "transactionId")
+    private Collection<Orders> ordersCollection;
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private User userId;
 
     public Transaction() {
     }
@@ -83,10 +90,9 @@ public class Transaction implements Serializable {
         this.id = id;
     }
 
-    public Transaction(Long id, short status, int userId, BigDecimal amount, String payment, String paymentInfo, String message, Date createdAt, Date updateAt) {
+    public Transaction(Long id, short status, BigDecimal amount, String payment, String paymentInfo, String message, Date createdAt, Date updateAt) {
         this.id = id;
         this.status = status;
-        this.userId = userId;
         this.amount = amount;
         this.payment = payment;
         this.paymentInfo = paymentInfo;
@@ -109,14 +115,6 @@ public class Transaction implements Serializable {
 
     public void setStatus(short status) {
         this.status = status;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public BigDecimal getAmount() {
@@ -165,6 +163,23 @@ public class Transaction implements Serializable {
 
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
+    }
+
+    @XmlTransient
+    public Collection<Orders> getOrdersCollection() {
+        return ordersCollection;
+    }
+
+    public void setOrdersCollection(Collection<Orders> ordersCollection) {
+        this.ordersCollection = ordersCollection;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     @Override

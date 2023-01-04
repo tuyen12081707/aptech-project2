@@ -6,8 +6,10 @@
 package aptech.project2.dao;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +17,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -52,6 +56,8 @@ public class Catalog implements Serializable {
     @Column(name = "update_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "catalogId")
+    private Collection<Product> productCollection;
 
     public Catalog() {
     }
@@ -97,6 +103,15 @@ public class Catalog implements Serializable {
 
     public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
+    }
+
+    @XmlTransient
+    public Collection<Product> getProductCollection() {
+        return productCollection;
+    }
+
+    public void setProductCollection(Collection<Product> productCollection) {
+        this.productCollection = productCollection;
     }
 
     @Override

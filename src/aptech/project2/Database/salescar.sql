@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th12 26, 2022 lúc 10:39 AM
--- Phiên bản máy phục vụ: 10.4.25-MariaDB
--- Phiên bản PHP: 8.1.10
+-- Host: 127.0.0.1
+-- Generation Time: Jan 04, 2023 at 07:03 AM
+-- Server version: 10.4.24-MariaDB
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `salescar`
+-- Database: `salescar`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `catalog`
+-- Table structure for table `catalog`
 --
 
 CREATE TABLE `catalog` (
@@ -32,17 +32,17 @@ CREATE TABLE `catalog` (
   `name` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `create_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `orders`
+-- Table structure for table `orders`
 --
 
 CREATE TABLE `orders` (
   `id` int(255) NOT NULL,
-  `transaction_id` int(255) NOT NULL,
+  `transaction_id` bigint(20) NOT NULL,
   `product_id` int(255) NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT 0,
   `amount` decimal(15,4) NOT NULL DEFAULT 0.0000,
@@ -53,7 +53,7 @@ CREATE TABLE `orders` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `product`
+-- Table structure for table `product`
 --
 
 CREATE TABLE `product` (
@@ -68,12 +68,12 @@ CREATE TABLE `product` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `view` int(11) NOT NULL DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `transaction`
+-- Table structure for table `transaction`
 --
 
 CREATE TABLE `transaction` (
@@ -86,96 +86,131 @@ CREATE TABLE `transaction` (
   `message` varchar(255) COLLATE utf8_bin NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `update_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `id` int(255) NOT NULL,
+  `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `phone` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
   `address` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `role` int(11) NOT NULL DEFAULT 0,
-  `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `password` char(40) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6),
   `update_at` timestamp(6) NOT NULL DEFAULT current_timestamp(6) ON UPDATE current_timestamp(6)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `name`, `email`, `phone`, `address`, `role`, `password`, `created_at`, `update_at`) VALUES
+(1, 'tuyenvui3', 'admin', 'protuyen2001@gmail.com', '0986614332', 'Đại học Quốc gia TP. HỒ CHÍ MINH\r\nP. Linh Trung, TP. Thủ Đức, TP. HCM\r\n\r\nSố điện thoại: (+84-28) 37242181 - 37242160\r\n\r\nFax: (+8', 1, '202cb962ac59075b964b07152d234b70', '2023-01-04 05:59:06.338920', '2023-01-04 05:59:06.338920');
+
+--
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `catalog`
+-- Indexes for table `catalog`
 --
 ALTER TABLE `catalog`
   ADD PRIMARY KEY (`id`);
 
 --
--- Chỉ mục cho bảng `orders`
+-- Indexes for table `orders`
 --
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_TRANSACTION` (`transaction_id`);
+  ADD KEY `FK_TRANSACTION` (`transaction_id`),
+  ADD KEY `transaction_id` (`transaction_id`),
+  ADD KEY `product_id` (`product_id`);
 
 --
--- Chỉ mục cho bảng `product`
+-- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_catalog_id` (`catalog_id`);
+  ADD KEY `fk_catalog_id` (`catalog_id`),
+  ADD KEY `catalog_id` (`catalog_id`);
 ALTER TABLE `product` ADD FULLTEXT KEY `name` (`name`);
 
 --
--- Chỉ mục cho bảng `transaction`
+-- Indexes for table `transaction`
 --
 ALTER TABLE `transaction`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
--- Chỉ mục cho bảng `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `catalog`
+-- AUTO_INCREMENT for table `catalog`
 --
 ALTER TABLE `catalog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `orders`
+-- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `product`
+-- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `transaction`
+-- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`transaction_id`) REFERENCES `transaction` (`id`),
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`);
+
+--
+-- Constraints for table `product`
+--
+ALTER TABLE `product`
+  ADD CONSTRAINT `product_ibfk_1` FOREIGN KEY (`catalog_id`) REFERENCES `catalog` (`id`);
+
+--
+-- Constraints for table `transaction`
+--
+ALTER TABLE `transaction`
+  ADD CONSTRAINT `transaction_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

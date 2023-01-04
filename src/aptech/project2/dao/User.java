@@ -6,8 +6,10 @@
 package aptech.project2.dao;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,10 +17,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,10 +42,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByCreatedAt", query = "SELECT u FROM User u WHERE u.createdAt = :createdAt")
-    , @NamedQuery(name = "User.findByUpdateAt", query = "SELECT u FROM User u WHERE u.updateAt = :updateAt")
-    , @NamedQuery(name = "User.login", query = "SELECT u FROM User u WHERE u.username = :username and u.password = :password")
-})
-
+    , @NamedQuery(name = "User.findByUpdateAt", query = "SELECT u FROM User u WHERE u.updateAt = :updateAt")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -79,6 +80,8 @@ public class User implements Serializable {
     @Column(name = "update_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updateAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Transaction> transactionCollection;
 
     public User() {
     }
@@ -180,6 +183,15 @@ public class User implements Serializable {
         this.updateAt = updateAt;
     }
 
+    @XmlTransient
+    public Collection<Transaction> getTransactionCollection() {
+        return transactionCollection;
+    }
+
+    public void setTransactionCollection(Collection<Transaction> transactionCollection) {
+        this.transactionCollection = transactionCollection;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -204,5 +216,5 @@ public class User implements Serializable {
     public String toString() {
         return "aptech.project2.dao.User[ id=" + id + " ]";
     }
-
+    
 }

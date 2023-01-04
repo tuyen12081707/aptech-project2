@@ -7,20 +7,26 @@ package aptech.project2.dao;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -32,7 +38,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
     , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
-    , @NamedQuery(name = "Product.findByCatalogId", query = "SELECT p FROM Product p WHERE p.catalogId = :catalogId")
     , @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
     , @NamedQuery(name = "Product.findByDiscount", query = "SELECT p FROM Product p WHERE p.discount = :discount")
@@ -48,9 +53,6 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @Column(name = "catalog_id")
-    private int catalogId;
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
@@ -83,6 +85,11 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "view")
     private int view;
+    @JoinColumn(name = "catalog_id", referencedColumnName = "id")
+    @ManyToOne(optional = false)
+    private Catalog catalogId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private Collection<Orders> ordersCollection;
 
     public Product() {
     }
@@ -91,9 +98,8 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, int catalogId, String name, BigDecimal price, String content, int discount, String imageLink, String imageList, Date createdAt, Date updateAt, int view) {
+    public Product(Integer id, String name, BigDecimal price, String content, int discount, String imageLink, String imageList, Date createdAt, Date updateAt, int view) {
         this.id = id;
-        this.catalogId = catalogId;
         this.name = name;
         this.price = price;
         this.content = content;
@@ -111,14 +117,6 @@ public class Product implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public int getCatalogId() {
-        return catalogId;
-    }
-
-    public void setCatalogId(int catalogId) {
-        this.catalogId = catalogId;
     }
 
     public String getName() {
@@ -191,6 +189,23 @@ public class Product implements Serializable {
 
     public void setView(int view) {
         this.view = view;
+    }
+
+    public Catalog getCatalogId() {
+        return catalogId;
+    }
+
+    public void setCatalogId(Catalog catalogId) {
+        this.catalogId = catalogId;
+    }
+
+    @XmlTransient
+    public Collection<Orders> getOrdersCollection() {
+        return ordersCollection;
+    }
+
+    public void setOrdersCollection(Collection<Orders> ordersCollection) {
+        this.ordersCollection = ordersCollection;
     }
 
     @Override
