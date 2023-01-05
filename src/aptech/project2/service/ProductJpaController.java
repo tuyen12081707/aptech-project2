@@ -5,6 +5,7 @@
  */
 package aptech.project2.service;
 
+import aptech.project2.dao.Catalog;
 import aptech.project2.dao.Product;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
@@ -143,6 +144,16 @@ public class ProductJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public static void main(String[] args) {
+        ProductJpaController jpaController= new ProductJpaController();
+        
+        Product p = jpaController.findProduct(1);
+        System.out.println(p.getCatalogId().getName());
+        
+        
+        
     }
 
 }

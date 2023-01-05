@@ -233,4 +233,6 @@ public class Product implements Serializable {
         return "aptech.project2.dao.Product[ id=" + id + " ]";
     }
     
+   
+    
 }
