@@ -3,6 +3,41 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/image/btn_check.png</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/common/CommonException.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/dao/Catalog.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/Database/salescar.sql</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/common/StringCommon.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/common/MessageContent.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/utilities/DBConnection.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/Main.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/GUI/ProductManagement.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/GUI/UserManager.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/utilities/MD5Util.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/entities/Users.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/entities/Catalog.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/entities/BaseEntity.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/utilities/JPAUtil.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/image/btn_delete.png</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/service/OrdersJpaController.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/service/ProductJpaController.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/GUI/TransactionMangerment.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/dao/User.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/dao/Transaction.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/service/CatalogJpaController.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/common/ValidateCommon.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/constant/constant.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/service/UserJpaController.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/image/btn_add.png</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/dao/Product.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/image/ic_catalog.png</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/image/ic_home.png</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/service/AuthService.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/dao/Orders.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/common/MessageCommon.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/image/ic_product.png</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/dao/AbstractDAO.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/GUI/Login.java</file>
             <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/GUI/Login.java</file>
             <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/ProductJpaController.java</file>
             <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/AuthService.java</file>
