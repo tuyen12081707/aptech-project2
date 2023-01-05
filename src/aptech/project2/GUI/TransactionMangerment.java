@@ -7,7 +7,6 @@ package aptech.project2.GUI;
 
 import aptech.project2.common.ValidateCommon;
 import aptech.project2.dao.Transaction;
-import aptech.project2.dao.User;
 import aptech.project2.service.TransactionJpaController;
 import aptech.project2.service.UserJpaController;
 import aptech.project2.service.exceptions.NonexistentEntityException;
@@ -535,7 +534,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField8ActionPerformed
 
     private void displayDetail(int transactionId) {
-        this.transaction = TransactionJpaController.getInstance().findTransaction(transactionId);
+//        this.transaction = TransactionJpaController.getInstance().findTransaction(transactionId);
 //        this.txtUserId.setText(transaction.getUsername());
 //        this.txtPayment.setText(transaction.getName());
 //        this.txtPaymentInfo.setText(transaction.getEmail());
