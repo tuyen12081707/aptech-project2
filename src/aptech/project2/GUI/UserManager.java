@@ -470,7 +470,7 @@ public class UserManager extends javax.swing.JFrame {
                     Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
-                System.out.println("Faile");
+                System.out.println("Fail");
             }
         }
         this.loadData();

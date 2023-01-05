@@ -5,10 +5,13 @@
  */
 package aptech.project2.service;
 
+import aptech.project2.dao.Product;
 import aptech.project2.dao.Transaction;
 import aptech.project2.dao.User;
+import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 
 /**
  *
@@ -25,8 +28,29 @@ public class TransactionService extends AbstractFacade<Transaction> {
         return instance;
     }
 
-    public TransactionService() {
+    private TransactionService() {
         super(Transaction.class);
+    }
+
+ public void delteById(Long id) throws NonexistentEntityException {
+        EntityManager em = null;
+        try {
+            em = getEntityManager();
+            em.getTransaction().begin();
+            Transaction transaction;
+            try {
+                transaction = em.getReference(Transaction.class, id);
+                transaction.getId();
+            } catch (EntityNotFoundException enfe) {
+                throw new NonexistentEntityException("The transaction with id " + id + " no longer exists.", enfe);
+            }
+            em.remove(transaction);
+            em.getTransaction().commit();
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
     }
 
     @Override
@@ -36,6 +60,7 @@ public class TransactionService extends AbstractFacade<Transaction> {
 
     public static void main(String[] args) {
         Transaction transaction = TransactionService.getInstance().find(1);
-      
+
     }
+
 }
