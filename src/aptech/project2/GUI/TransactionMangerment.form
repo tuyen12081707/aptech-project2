@@ -59,21 +59,16 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jTextField8" min="-2" pref="108" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
+                                              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                                               <Component id="txtAmount" min="-2" pref="234" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="jTextField1" min="-2" pref="108" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
+                                              <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
                                               <Component id="txtPayment" min="-2" pref="234" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="jTextField5" min="-2" pref="108" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="txtUserName" min="-2" pref="234" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="jTextField4" min="-2" pref="108" max="-2" attributes="0"/>
@@ -139,33 +134,19 @@
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jTextField5" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="txtUserName" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="jTextField7" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                   <Component id="txtStatus" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="jTextField8" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="txtAmount" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtPaymentInfo" alignment="3" min="-2" pref="69" max="-2" attributes="0"/>
-                          <Component id="jTextField2" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jTextField8" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="txtAmount" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtPayment" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                          <Component id="jTextField1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="txtPaymentInfo" alignment="3" min="-2" pref="69" max="-2" attributes="0"/>
+                  <Component id="jTextField2" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="jTextField1" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="txtPayment" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnLoad" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAdd" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
@@ -572,22 +553,6 @@
       <Properties>
         <Property name="horizontalAlignment" type="int" value="2"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="jTextField5">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Dialog" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Username"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField5ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JTextField" name="txtUserName">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUserNameActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTextField7">
       <Properties>
