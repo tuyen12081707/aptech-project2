@@ -16,18 +16,21 @@ import javax.persistence.Query;
  * @author protu
  */
 public class AuthService {
+
     private static AuthService instance;
     private User authUser;
 
     private AuthService() {
     }
-       public static AuthService getInstance() {
+
+    public static AuthService getInstance() {
         if (instance == null) {
             instance = new AuthService();
         }
         return instance;
     }
-        public User login(String username, String password) {
+
+    public User login(String username, String password) {
         EntityManager em = null;
         try {
             em = JPAUtil.getInstance().getEntityManager();
@@ -40,7 +43,7 @@ public class AuthService {
                 this.setAuthUser(user);
             }
             return user;
-        } catch(Exception e) {
+        } catch (Exception e) {
             return null;
         } finally {
             if (em != null) {
@@ -52,7 +55,7 @@ public class AuthService {
     public boolean checkAuthen() {
         return authUser != null;
     }
-    
+
     public User getAuthUser() {
         return authUser;
     }
