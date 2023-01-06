@@ -14,6 +14,7 @@ import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
 import com.mysql.jdbc.RowData;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -35,7 +36,7 @@ public class ProductManagement extends javax.swing.JFrame {
     private final String DELETE_SUCCESS = "Xoá Thành Công";
     private boolean flagInsert = false;
     private List<Catalog> catalogs = CatalogJpaController.getInstance().findCatalogEntities();
-    private List<String> catalogsname = catalogs.stream().map(Catalog::getName).collect(Collectors.toList());
+//    private List<String> catalogsname = catalogs.stream().map(Catalog::getName).collect(Collectors.toList());
     private List<Product> products = ProductJpaController.getInstance().findProductEntities();
 
     /**
@@ -473,6 +474,7 @@ public class ProductManagement extends javax.swing.JFrame {
         Product newproduct = new Product();
         addData(newproduct);
         this.loadData();
+        showonTable(products);
     }//GEN-LAST:event_btnAddActionPerformed
     private void reloadData() {
         this.product = null;
@@ -497,6 +499,7 @@ public class ProductManagement extends javax.swing.JFrame {
                 this.productId = -1;
                 this.product = null;
                 this.loadData();
+                showonTable(products);
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(ProductManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -506,10 +509,10 @@ public class ProductManagement extends javax.swing.JFrame {
 
     private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
         this.loadData();
+        showonTable(products);
     }//GEN-LAST:event_btnLoadActionPerformed
     private void loadData() {
-        List<Product> updatedproducts = ProductJpaController.getInstance().findProductEntities();
-        showonTable(updatedproducts);
+        products = ProductJpaController.getInstance().findProductEntities();
     }
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
@@ -550,6 +553,7 @@ public class ProductManagement extends javax.swing.JFrame {
 
         }
         this.loadData();
+        showonTable(products);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void tblProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductMouseClicked
@@ -571,8 +575,15 @@ public class ProductManagement extends javax.swing.JFrame {
     }//GEN-LAST:event_SelCatalogActionPerformed
 
     private void btnSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortActionPerformed
-        // TODO add your handling code here:
-        List<Product> sortedlist = products.stream().sorted(Comparator.comparing(Product::getPrice)).collect(Collectors.toList());
+        // TODO add your handling code here: 
+        List<Product> current = new ArrayList<>();
+        for (int i = 0; i < tblProduct.getRowCount(); i++) {
+            productId = Integer.parseInt(tblProduct.getModel().getValueAt(i, 0).toString());
+//            System.out.println(productId);
+            Product p = ProductJpaController.getInstance().findProduct(productId);
+            current.add(p);
+        }
+        List<Product> sortedlist = current.stream().sorted(Comparator.comparing(Product::getPrice)).collect(Collectors.toList());
         showonTable(sortedlist);
     }//GEN-LAST:event_btnSortActionPerformed
 
@@ -587,11 +598,11 @@ public class ProductManagement extends javax.swing.JFrame {
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
         // TODO add your handling code here:
-        List<Product> updatedproduct = ProductJpaController.getInstance().findProductEntities();
+        this.loadData();
         Catalog selectedcatalog = new Catalog();
         selectedcatalog.setId(selCatalog1.getSelectedIndex() + 1);
         selectedcatalog.setName((String) selCatalog1.getSelectedItem());
-        List<Product> listbycata = updatedproduct.stream()
+        List<Product> listbycata = products.stream()
                 .filter(p -> p.getCatalogId().getName() == selectedcatalog.getName())
                 .collect(Collectors.toList());
         showonTable(listbycata);
@@ -612,9 +623,9 @@ public class ProductManagement extends javax.swing.JFrame {
     private void selectDataCata() {
         SelCatalog.removeAllItems();
         selCatalog1.removeAllItems();
-        catalogsname.forEach(a -> {
-            SelCatalog.addItem(a);
-            selCatalog1.addItem(a);
+        catalogs.forEach(a -> {
+            SelCatalog.addItem(a.getName());
+            selCatalog1.addItem(a.getName());
         });
     }
 
