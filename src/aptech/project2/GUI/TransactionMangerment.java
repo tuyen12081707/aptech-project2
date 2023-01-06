@@ -44,7 +44,6 @@ public class TransactionMangerment extends javax.swing.JFrame {
     public TransactionMangerment() {
         initComponents();
         this.loadData();
-        this.txtUserId.setEnabled(false);
     }
 
     /**
@@ -448,7 +447,10 @@ public class TransactionMangerment extends javax.swing.JFrame {
         this.transactionId = null;
         this.txtUserId.setText("");
         this.txtAmount.setText("");
-
+        this.SelPayment.getModel().setSelectedItem(0);
+        this.txtMessage.setText("");
+        this.SelStatus.getModel().setSelectedItem(0);
+        this.txtPaymentInfo.setText("");
     }
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         if (transactionId == -1) {
@@ -494,13 +496,16 @@ public class TransactionMangerment extends javax.swing.JFrame {
     }
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        this.txtUserId.setEnabled(false);
         if (flagInsert) {
             transaction = new Transaction();
-//            String newUserName = this.txtUserId.getText();
-//            String newPhone = this.txtMessage.getText();
-//            String newName = this.txtPayment.getText();
-//            String newEmail = this.txtPaymentInfo.getText();
-
+            String amount = this.txtAmount.getText();
+            Short newStatus = new Short(this.SelStatus.getModel().getSelectedItem().toString());
+            transaction.setAmount(new BigDecimal(amount));
+            transaction.setMessage(this.txtMessage.getText());
+            transaction.setPaymentInfo(this.txtPaymentInfo.getText());
+            transaction.setPayment(this.SelPayment.getModel().getSelectedItem().toString());
+            transaction.setStatus(newStatus);
             TransactionService.getInstance().create(transaction);
         } else {
             if (transaction == null) {
@@ -509,11 +514,13 @@ public class TransactionMangerment extends javax.swing.JFrame {
             }
 
             try {
+                Short newStatus = new Short(this.SelStatus.getModel().getSelectedItem().toString());
                 String amount = this.txtAmount.getText();
                 transaction.setAmount(new BigDecimal(amount));
                 transaction.setMessage(this.txtMessage.getText());
                 transaction.setPaymentInfo(this.txtPaymentInfo.getText());
                 transaction.setPayment(this.SelPayment.getModel().getSelectedItem().toString());
+                transaction.setStatus(newStatus);
                 TransactionService.getInstance().edit(transaction);
             } catch (Exception ex) {
                 Logger.getLogger(TransactionMangerment.class.getName()).log(Level.SEVERE, null, ex);
