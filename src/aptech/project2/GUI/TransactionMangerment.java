@@ -37,6 +37,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private boolean flagInsert = false;
     private final String DA_THANH_TOAN = "Đã Thanh Toán";
     private final String CHUA_THANH_TOAN = "Chưa Thanh Toán";
+    private final String DAT_COC = "Đặt Cọc";
 
     /**
      * Creates new form UserManager
@@ -441,6 +442,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         this.reloadData();
         this.flagInsert = true;
+        this.txtUserId.setEnabled(true);
+
     }//GEN-LAST:event_btnAddActionPerformed
     private void reloadData() {
         this.transaction = null;
@@ -481,12 +484,13 @@ public class TransactionMangerment extends javax.swing.JFrame {
         tableModel.setRowCount(0);
         SelPayment.removeAllItems();
         SelStatus.removeAllItems();
-
+        SelStatus.addItem(DA_THANH_TOAN);
+        SelStatus.addItem(CHUA_THANH_TOAN);
+        SelStatus.addItem(DAT_COC);
         transactions.stream().forEach(t -> {
-            String status = t.getStatus() == 1 ? DA_THANH_TOAN : CHUA_THANH_TOAN;
+            String status = selectStatus(t.getStatus());
             String createDate = new DateCommon().convertDateToString(t.getCreatedAt(), Constant.DATE_FORMAT);
             SelPayment.addItem(t.getPayment());
-            selectStatus(t.getStatus());
             Object[] rowData = new Object[]{
                 t.getId(), t.getUserId().getId(), t.getUserId().getName(), status, t.getAmount(), t.getPayment(), t.getPaymentInfo(), t.getMessage(), createDate
             };
@@ -500,12 +504,21 @@ public class TransactionMangerment extends javax.swing.JFrame {
         if (flagInsert) {
             transaction = new Transaction();
             String amount = this.txtAmount.getText();
-            Short newStatus = new Short(this.SelStatus.getModel().getSelectedItem().toString());
+            Short convertStatusToInt = convertStatusToInt(this.SelStatus.getModel().getSelectedItem().toString());
+            Short newStatus = new Short(convertStatusToInt);
+            int idUpdate = Integer.parseInt(this.txtUserId.getText());
+            System.out.println("idUpdate " + idUpdate);
+            User user = new User();
+            user.setId(idUpdate);
+            transaction.setUserId(user);
             transaction.setAmount(new BigDecimal(amount));
             transaction.setMessage(this.txtMessage.getText());
             transaction.setPaymentInfo(this.txtPaymentInfo.getText());
             transaction.setPayment(this.SelPayment.getModel().getSelectedItem().toString());
             transaction.setStatus(newStatus);
+            transaction.setCreatedAt(new Date());
+            transaction.setUpdateAt(new Date());
+            System.out.println("transaction" + transaction.toString());
             TransactionService.getInstance().create(transaction);
         } else {
             if (transaction == null) {
@@ -514,7 +527,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
             }
 
             try {
-                Short newStatus = new Short(this.SelStatus.getModel().getSelectedItem().toString());
+                Short convertStatusToInt = convertStatusToInt(this.SelStatus.getModel().getSelectedItem().toString());
+                Short newStatus = new Short(convertStatusToInt);
                 String amount = this.txtAmount.getText();
                 transaction.setAmount(new BigDecimal(amount));
                 transaction.setMessage(this.txtMessage.getText());
@@ -535,6 +549,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
         transactionId = Long.parseLong(tblTransaction.getModel().getValueAt(tblTransaction.getSelectedRow(), 0).toString());
         System.out.println("-----------------------userId: " + transactionId);
         this.displayDetail(transactionId);
+        this.txtUserId.setEnabled(false);
+
     }//GEN-LAST:event_tblTransactionMouseClicked
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -583,13 +599,24 @@ public class TransactionMangerment extends javax.swing.JFrame {
 
     }
 
-    private void selectStatus(int status) {
-        if (status == 1) {
-            SelStatus.addItem(DA_THANH_TOAN);
+    private String selectStatus(int statusId) {
+        String status = "";
+        if (statusId == 0) {
+            status = CHUA_THANH_TOAN;
         } else {
-            SelStatus.addItem(CHUA_THANH_TOAN);
+            status = DA_THANH_TOAN;
         }
+        return status;
+    }
 
+    private Short convertStatusToInt(String status) {
+        Short statusId = null;
+        if (status == CHUA_THANH_TOAN) {
+            statusId = 0;
+        } else {
+            statusId = 1;
+        }
+        return statusId;
     }
 
     private void displayDetail(Long transactionId) {
