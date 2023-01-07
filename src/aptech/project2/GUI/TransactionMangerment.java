@@ -626,7 +626,6 @@ public class TransactionMangerment extends javax.swing.JFrame {
             userDetail.setUserId(id);
             userDetail.setVisible(true);
             System.out.println("-----------id" + id);
-            dispose();
         }
     }
 

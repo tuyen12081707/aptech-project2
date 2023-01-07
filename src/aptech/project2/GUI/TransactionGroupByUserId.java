@@ -34,13 +34,10 @@ public class TransactionGroupByUserId extends javax.swing.JFrame {
      */
     public TransactionGroupByUserId() {
         initComponents();
-
-    }
-
-    public TransactionGroupByUserId(int userId) {
-        this.userId = userId;
         this.loadData();
     }
+
+  
 
     public void loadData() {
         DefaultTableModel tableModel = (DefaultTableModel) tblTransactionDetail.getModel();
