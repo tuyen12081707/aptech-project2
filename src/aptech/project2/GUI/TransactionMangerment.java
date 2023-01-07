@@ -35,9 +35,11 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private Transaction transaction = null;
     private final String DELETE_SUCCESS = "Xoá Thành Công";
     private boolean flagInsert = false;
-    private final String DA_THANH_TOAN = "Đã Thanh Toán";
-    private final String CHUA_THANH_TOAN = "Chưa Thanh Toán";
-    private final String DAT_COC = "Đặt Cọc";
+    private boolean btnDetailCheck = false;
+    public final static String DA_THANH_TOAN = "Đã Thanh Toán";
+    public final static String CHUA_THANH_TOAN = "Chưa Thanh Toán";
+    public final static String DAT_COC = "Đặt Cọc";
+    private TransactionGroupByUserId userDetail;
 
     /**
      * Creates new form UserManager
@@ -86,6 +88,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
         txtAmount = new javax.swing.JTextField();
         SelPayment = new javax.swing.JComboBox<>();
         SelStatus = new javax.swing.JComboBox<>();
+        btnDetail = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -338,6 +341,14 @@ public class TransactionMangerment extends javax.swing.JFrame {
             }
         });
 
+        btnDetail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/btn_user.png"))); // NOI18N
+        btnDetail.setText("Detail");
+        btnDetail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -385,7 +396,9 @@ public class TransactionMangerment extends javax.swing.JFrame {
                                 .addGap(45, 45, 45)
                                 .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(36, 36, 36)
-                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(74, 74, 74)
+                                .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(289, 289, 289)
                         .addComponent(titleUser, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -424,7 +437,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
                     .addComponent(btnLoad)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDel))
+                    .addComponent(btnDel)
+                    .addComponent(btnDetail, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -456,7 +470,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
         this.txtPaymentInfo.setText("");
     }
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        if (transactionId == -1) {
+        if (transactionId == null) {
             JOptionPane.showMessageDialog(null, "Vui Lòng chọn giao dịch muốn xoá");
             return;
         }
@@ -550,7 +564,6 @@ public class TransactionMangerment extends javax.swing.JFrame {
         System.out.println("-----------------------userId: " + transactionId);
         this.displayDetail(transactionId);
         this.txtUserId.setEnabled(false);
-
     }//GEN-LAST:event_tblTransactionMouseClicked
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -590,6 +603,14 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private void txtUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUserIdActionPerformed
+
+    private void btnDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetailActionPerformed
+        // TODO add your handling code here:
+        this.btnDetailCheck = true;
+        int userId = Integer.parseInt(tblTransaction.getModel().getValueAt(tblTransaction.getSelectedRow(), 1).toString());
+        System.out.println("new userId-----------" + userId);
+        handleBtnDetail(userId);
+    }//GEN-LAST:event_btnDetailActionPerformed
     private void selectDatePayment() {
         List<Transaction> transactions = TransactionJpaController.getInstance().findTransactionEntities();
         SelPayment.removeAllItems();
@@ -597,6 +618,16 @@ public class TransactionMangerment extends javax.swing.JFrame {
             SelPayment.addItem(t.getPayment());
         });
 
+    }
+
+    private void handleBtnDetail(int id) {
+        if (btnDetailCheck) {
+            userDetail = new TransactionGroupByUserId();
+            userDetail.setUserId(id);
+            userDetail.setVisible(true);
+            System.out.println("-----------id" + id);
+            dispose();
+        }
     }
 
     private String selectStatus(int statusId) {
@@ -677,6 +708,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> SelStatus;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
+    private javax.swing.JButton btnDetail;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLoad;
     private javax.swing.JLabel jLabel10;

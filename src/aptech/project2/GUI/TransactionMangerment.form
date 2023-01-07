@@ -100,6 +100,8 @@
                               <Component id="btnDel" min="-2" pref="115" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="btnEdit" min="-2" pref="124" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                              <Component id="btnDetail" min="-2" pref="117" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -152,6 +154,7 @@
                   <Component id="btnAdd" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                   <Component id="btnEdit" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
                   <Component id="btnDel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDetail" alignment="3" min="-2" pref="48" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="265" max="-2" attributes="0"/>
@@ -618,6 +621,17 @@
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnDetail">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/aptech/project2/image/btn_user.png"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Detail"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDetailActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
