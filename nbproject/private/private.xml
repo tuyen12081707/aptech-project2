@@ -9,6 +9,13 @@
             <file>file:/C:/Users/DQT/Desktop/aptech-project2/src/aptech/project2/GUI/Login.java</file>
             <file>file:/C:/Users/DQT/Desktop/aptech-project2/src/aptech/project2/dao/Orders.java</file>
             <file>file:/C:/Users/DQT/Desktop/aptech-project2/src/aptech/project2/dao/Product.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/GUI/ProductManagement.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/dao/Product.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/service/ProductJpaController.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/service/AuthService.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/GUI/UserManager.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/service/CatalogService.java</file>
+            <file>file:/D:/github/aptech-project2/src/aptech/project2/service/CatalogJpaController.java</file>
         </group>
     </open-files>
 </project-private>

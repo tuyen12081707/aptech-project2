@@ -5,14 +5,19 @@
  */
 package aptech.project2.GUI;
 
+import aptech.project2.common.DateCommon;
 import aptech.project2.common.ValidateCommon;
+import aptech.project2.constant.Constant;
 import aptech.project2.dao.Transaction;
 import aptech.project2.dao.User;
 import aptech.project2.service.TransactionJpaController;
+import aptech.project2.service.TransactionService;
 import aptech.project2.service.UserJpaController;
+import aptech.project2.service.UserService;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
 import com.mysql.jdbc.RowData;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,16 +31,20 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TransactionMangerment extends javax.swing.JFrame {
 
-    private int userId = -1;
-    private User user = null;
+    private Long transactionId = null;
+    private Transaction transaction = null;
     private final String DELETE_SUCCESS = "Xoá Thành Công";
     private boolean flagInsert = false;
+    private final String DA_THANH_TOAN = "Đã Thanh Toán";
+    private final String CHUA_THANH_TOAN = "Chưa Thanh Toán";
+    private final String DAT_COC = "Đặt Cọc";
 
     /**
      * Creates new form UserManager
      */
     public TransactionMangerment() {
         initComponents();
+        this.loadData();
     }
 
     /**
@@ -70,15 +79,13 @@ public class TransactionMangerment extends javax.swing.JFrame {
         jTextField6 = new javax.swing.JTextField();
         lbTransaction = new javax.swing.JLabel();
         txtUserId = new javax.swing.JTextField();
-        txtPayment = new javax.swing.JTextField();
         txtMessage = new javax.swing.JTextField();
         txtPaymentInfo = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        txtUserName = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
-        txtStatus = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
         txtAmount = new javax.swing.JTextField();
+        SelPayment = new javax.swing.JComboBox<>();
+        SelStatus = new javax.swing.JComboBox<>();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -104,15 +111,23 @@ public class TransactionMangerment extends javax.swing.JFrame {
                 "ID", "UserId", "Username", "Status", "Amount", "Payment", "PaymentInfo", "Message", "Create At"
             }
         ));
+        tblTransaction.setColumnSelectionAllowed(true);
         tblTransaction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblTransactionMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblTransaction);
+        tblTransaction.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         if (tblTransaction.getColumnModel().getColumnCount() > 0) {
             tblTransaction.getColumnModel().getColumn(0).setMinWidth(5);
             tblTransaction.getColumnModel().getColumn(0).setPreferredWidth(5);
+            tblTransaction.getColumnModel().getColumn(2).setMinWidth(200);
+            tblTransaction.getColumnModel().getColumn(2).setMaxWidth(200);
+            tblTransaction.getColumnModel().getColumn(3).setMinWidth(10);
+            tblTransaction.getColumnModel().getColumn(3).setMaxWidth(200);
+            tblTransaction.getColumnModel().getColumn(6).setMinWidth(300);
+            tblTransaction.getColumnModel().getColumn(6).setMaxWidth(1000);
         }
 
         titleUser.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
@@ -287,36 +302,38 @@ public class TransactionMangerment extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        txtUserId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserIdActionPerformed(evt);
+            }
+        });
+
         txtPaymentInfo.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-
-        jTextField5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jTextField5.setText("Username");
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
-            }
-        });
-
-        txtUserName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserNameActionPerformed(evt);
-            }
-        });
 
         jTextField7.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTextField7.setText("Status");
-
-        txtStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtStatusActionPerformed(evt);
-            }
-        });
 
         jTextField8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jTextField8.setText("Amount");
         jTextField8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField8ActionPerformed(evt);
+            }
+        });
+
+        SelPayment.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        SelPayment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SelPayment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelPaymentActionPerformed(evt);
+            }
+        });
+
+        SelStatus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        SelStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        SelStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SelStatusActionPerformed(evt);
             }
         });
 
@@ -328,58 +345,53 @@ public class TransactionMangerment extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(71, 71, 71)
-                                        .addComponent(btnLoad)
-                                        .addGap(39, 39, 39)
-                                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(31, 31, 31)
+                                        .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(12, 12, 12)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(txtPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(31, 31, 31)
-                                                .addComponent(txtUserId, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(90, 90, 90)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(74, 74, 74)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                    .addComponent(txtStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-                                                    .addComponent(txtMessage)
-                                                    .addComponent(txtPaymentInfo)))))
+                                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(43, 43, 43)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtAmount)
+                                            .addComponent(SelPayment, 0, 222, Short.MAX_VALUE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(77, 77, 77)
+                                .addComponent(btnLoad)
+                                .addGap(39, 39, 39)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(112, 112, 112)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(23, 23, 23)
-                                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(36, 36, 36)
-                                        .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(74, 74, 74)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(SelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtPaymentInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(45, 45, 45)
+                                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(289, 289, 289)
-                        .addComponent(titleUser, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(titleUser, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1202, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(106, 106, 106))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -394,10 +406,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,6 +426,16 @@ public class TransactionMangerment extends javax.swing.JFrame {
                             .addComponent(txtPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(54, 54, 54)
+                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtAmount, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SelStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPaymentInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SelPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLoad)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -438,30 +458,31 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         this.reloadData();
         this.flagInsert = true;
+        this.txtUserId.setEnabled(true);
+
     }//GEN-LAST:event_btnAddActionPerformed
     private void reloadData() {
-        this.user = null;
-        this.userId = -1;
+        this.transaction = null;
+        this.transactionId = null;
         this.txtUserId.setText("");
-        this.txtPayment.setText("");
-        this.txtPaymentInfo.setText("");
-        this.txtUserName.setText("");
+        this.txtAmount.setText("");
+        this.SelPayment.getModel().setSelectedItem(0);
         this.txtMessage.setText("");
+        this.SelStatus.getModel().setSelectedItem(0);
+        this.txtPaymentInfo.setText("");
     }
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        if (userId == -1) {
-            JOptionPane.showMessageDialog(null, "Vui Lòng chọn Tài Khoản muốn xoá");
+        if (transactionId == -1) {
+            JOptionPane.showMessageDialog(null, "Vui Lòng chọn giao dịch muốn xoá");
             return;
         }
-        String askUser = "Bạn có chắc chắn muốn xoá tài khoản với id " + userId + " không ?";
+        String askUser = "Bạn có chắc chắn muốn xoá giao dịch với id " + transactionId + " không ?";
         int choose = JOptionPane.showConfirmDialog(null, askUser,
                 "Xác Nhận Xoá", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
         if (choose == 0) {
             try {
-                UserJpaController.getInstance().destroy(userId);
+                TransactionService.getInstance().delteById(transactionId);
                 JOptionPane.showMessageDialog(null, DELETE_SUCCESS);
-                this.userId = -1;
-                this.user = null;
                 this.loadData();
             } catch (NonexistentEntityException ex) {
                 Logger.getLogger(TransactionMangerment.class.getName()).log(Level.SEVERE, null, ex);
@@ -474,73 +495,78 @@ public class TransactionMangerment extends javax.swing.JFrame {
         this.loadData();
     }//GEN-LAST:event_btnLoadActionPerformed
     private void loadData() {
-        List<Transaction> transactions = TransactionJpaController.getInstance().findTransactionEntities();
+        List<Transaction> transactions = TransactionService.getInstance().findAll();
         DefaultTableModel tableModel = (DefaultTableModel) tblTransaction.getModel();
         tableModel.setRowCount(0);
-        transactions.stream().forEach(u -> {
-            String status = u.getStatus()== 1 ? "Đã Thanh Toán" : "Chưa Thanh Toán";
+        SelPayment.removeAllItems();
+        SelStatus.removeAllItems();
+        SelStatus.addItem(DA_THANH_TOAN);
+        SelStatus.addItem(CHUA_THANH_TOAN);
+        SelStatus.addItem(DAT_COC);
+        transactions.stream().forEach(t -> {
+            String status = selectStatus(t.getStatus());
+            String createDate = new DateCommon().convertDateToString(t.getCreatedAt(), Constant.DATE_FORMAT);
+            SelPayment.addItem(t.getPayment());
             Object[] rowData = new Object[]{
-                u.getId(), u.getUserId() 
+                t.getId(), t.getUserId().getId(), t.getUserId().getName(), status, t.getAmount(), t.getPayment(), t.getPaymentInfo(), t.getMessage(), createDate
             };
             tableModel.addRow(rowData);
+
         });
     }
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        this.txtUserId.setEnabled(false);
         if (flagInsert) {
-            user = new User();
-            String newUserName = this.txtUserId.getText();
-            String newPassWord = this.txtUserName.getText();
-            String newPhone = this.txtMessage.getText();
-            String newName = this.txtPayment.getText();
-            String newEmail = this.txtPaymentInfo.getText();
-            user.setUsername(newUserName);
-            user.setPassword(newPassWord);
-            user.setPhone(newPhone);
-            user.setName(newName);
-            user.setEmail(newEmail);
-            user.setCreatedAt(new Date());
-            user.setUpdateAt(new Date());
-            user.setAddress(" ");
-            user.setRole(0);
-            UserJpaController.getInstance().create(user);
+            transaction = new Transaction();
+            String amount = this.txtAmount.getText();
+            Short convertStatusToInt = convertStatusToInt(this.SelStatus.getModel().getSelectedItem().toString());
+            Short newStatus = new Short(convertStatusToInt);
+            int idUpdate = Integer.parseInt(this.txtUserId.getText());
+            System.out.println("idUpdate " + idUpdate);
+            User user = new User();
+            user.setId(idUpdate);
+            transaction.setUserId(user);
+            transaction.setAmount(new BigDecimal(amount));
+            transaction.setMessage(this.txtMessage.getText());
+            transaction.setPaymentInfo(this.txtPaymentInfo.getText());
+            transaction.setPayment(this.SelPayment.getModel().getSelectedItem().toString());
+            transaction.setStatus(newStatus);
+            transaction.setCreatedAt(new Date());
+            transaction.setUpdateAt(new Date());
+            System.out.println("transaction" + transaction.toString());
+            TransactionService.getInstance().create(transaction);
         } else {
-            if (user == null) {
+            if (transaction == null) {
                 JOptionPane.showMessageDialog(null, "Chọn người dùng muốn cập nhật");
                 return;
             }
-            String newUserName = this.txtUserId.getText();
-            String newPassWord = this.txtUserName.getText();
-            String newPhone = this.txtMessage.getText();
-            String newName = this.txtPayment.getText();
-            String newEmail = this.txtPaymentInfo.getText();
-            Boolean checkUserName = ValidateCommon.isValidUsername(newUserName);
-            Boolean checkPhone = ValidateCommon.isValidVietnamesePhoneNumber(newPhone);
-            System.out.println(checkUserName);
-            System.out.println("phone" + checkPhone);
-            if (checkUserName && checkPhone) {
-                try {
-                    user.setUsername(newUserName);
-                    user.setPassword(newPassWord);
-                    user.setName(newName);
-                    user.setEmail(newEmail);
-                    user.setPassword(newPhone);
-                    UserJpaController.getInstance().edit(user);
-                } catch (Exception ex) {
-                    Logger.getLogger(TransactionMangerment.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                System.out.println("Faile");
+
+            try {
+                Short convertStatusToInt = convertStatusToInt(this.SelStatus.getModel().getSelectedItem().toString());
+                Short newStatus = new Short(convertStatusToInt);
+                String amount = this.txtAmount.getText();
+                transaction.setAmount(new BigDecimal(amount));
+                transaction.setMessage(this.txtMessage.getText());
+                transaction.setPaymentInfo(this.txtPaymentInfo.getText());
+                transaction.setPayment(this.SelPayment.getModel().getSelectedItem().toString());
+                transaction.setStatus(newStatus);
+                TransactionService.getInstance().edit(transaction);
+            } catch (Exception ex) {
+                Logger.getLogger(TransactionMangerment.class.getName()).log(Level.SEVERE, null, ex);
             }
+
         }
         this.loadData();
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void tblTransactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTransactionMouseClicked
         // TODO add your handling code here:
-        userId = Integer.parseInt(tblTransaction.getModel().getValueAt(tblTransaction.getSelectedRow(), 0).toString());
-        System.out.println("-----------------------userId: " + userId);
-        this.displayDetail(userId);
+        transactionId = Long.parseLong(tblTransaction.getModel().getValueAt(tblTransaction.getSelectedRow(), 0).toString());
+        System.out.println("-----------------------userId: " + transactionId);
+        this.displayDetail(transactionId);
+        this.txtUserId.setEnabled(false);
+
     }//GEN-LAST:event_tblTransactionMouseClicked
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
@@ -550,10 +576,6 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
@@ -566,25 +588,67 @@ public class TransactionMangerment extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_lbTransactionMouseClicked
 
-    private void txtStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtStatusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtStatusActionPerformed
-
     private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField8ActionPerformed
 
-    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
+    private void SelPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelPaymentActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserNameActionPerformed
+        if (SelPayment.getSelectedIndex() > -1) {
+            System.out.println(SelPayment.getSelectedIndex());
+        }
+    }//GEN-LAST:event_SelPaymentActionPerformed
 
-    private void displayDetail(int userId) {
-        this.user = UserJpaController.getInstance().findUser(userId);
-        this.txtUserId.setText(user.getUsername());
-        this.txtPayment.setText(user.getName());
-        this.txtPaymentInfo.setText(user.getEmail());
-        this.txtMessage.setText(user.getPhone());
-        this.txtUserName.setText(user.getPassword());
+    private void SelStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SelStatusActionPerformed
+
+    private void txtUserIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserIdActionPerformed
+    private void selectDatePayment() {
+        List<Transaction> transactions = TransactionJpaController.getInstance().findTransactionEntities();
+        SelPayment.removeAllItems();
+        transactions.stream().forEach(t -> {
+            SelPayment.addItem(t.getPayment());
+        });
+
+    }
+
+    private String selectStatus(int statusId) {
+        String status = "";
+        if (statusId == 0) {
+            status = CHUA_THANH_TOAN;
+        } else {
+            status = DA_THANH_TOAN;
+        }
+        return status;
+    }
+
+    private Short convertStatusToInt(String status) {
+        Short statusId = null;
+        if (status == CHUA_THANH_TOAN) {
+            statusId = 0;
+        } else {
+            statusId = 1;
+        }
+        return statusId;
+    }
+
+    private void displayDetail(Long transactionId) {
+        this.transaction = TransactionService.getInstance().find(transactionId);
+        this.txtUserId.setText(String.valueOf(transaction.getUserId().getId()));
+        this.txtAmount.setText(String.valueOf(transaction.getAmount()));
+        this.txtMessage.setText(transaction.getMessage());
+        this.txtPaymentInfo.setText(transaction.getPaymentInfo());
+        this.SelPayment.getModel().setSelectedItem(transaction.getPayment());
+        if (transaction.getStatus() == 1) {
+            this.SelStatus.getModel().setSelectedItem(DA_THANH_TOAN);
+
+        } else {
+            this.SelStatus.getModel().setSelectedItem(CHUA_THANH_TOAN);
+
+        }
 
     }
 
@@ -625,6 +689,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> SelPayment;
+    private javax.swing.JComboBox<String> SelStatus;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDel;
     private javax.swing.JButton btnEdit;
@@ -643,7 +709,6 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
@@ -652,11 +717,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private javax.swing.JTextField titleUser;
     private javax.swing.JTextField txtAmount;
     private javax.swing.JTextField txtMessage;
-    private javax.swing.JTextField txtPayment;
     private javax.swing.JTextField txtPaymentInfo;
-    private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtUserId;
-    private javax.swing.JTextField txtUserName;
     // End of variables declaration//GEN-END:variables
 
 }
