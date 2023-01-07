@@ -45,6 +45,7 @@ public class Login extends javax.swing.JFrame {
         btnLogin1 = new javax.swing.JButton();
         btnRegistry = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        lbmessage = new javax.swing.JLabel();
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 36)); // NOI18N
         jLabel3.setText("Đăng nhập");
@@ -102,6 +103,11 @@ public class Login extends javax.swing.JFrame {
         jLabel6.setText("Mật khẩu:");
 
         txtPassword.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
+        txtPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPasswordActionPerformed(evt);
+            }
+        });
 
         btnLogin1.setFont(new java.awt.Font("Arial", 0, 16)); // NOI18N
         btnLogin1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/unlock.png"))); // NOI18N
@@ -130,6 +136,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        lbmessage.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lbmessage.setForeground(new java.awt.Color(255, 102, 102));
+        lbmessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbmessage.setText("Vui lòng đăng nhập vào hệ thống!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -147,14 +158,16 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel5)
                             .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnLogin1)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnRegistry, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(42, 42, 42)
-                                .addComponent(btnExit)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExit))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lbmessage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtPassword, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE)))))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,18 +180,20 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(18, 18, 18)
                         .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(27, 27, 27)
+                        .addComponent(lbmessage)
+                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnLogin1)
                             .addComponent(btnRegistry)
                             .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(14, 14, 14))
+                        .addGap(48, 48, 48))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -212,23 +227,22 @@ public class Login extends javax.swing.JFrame {
     private void btnLogin1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogin1ActionPerformed
         String username = this.txtUsername.getText();
         String password = String.valueOf(this.txtPassword.getPassword());
-        if (username.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Tài khoản không được trống!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-        if (password.equals("")) {
-            JOptionPane.showMessageDialog(rootPane, "Mật khẩu không được trống!", "Thông báo", JOptionPane.WARNING_MESSAGE);
-            return;
+        if (username.equals("") || password.equals("")) {
+            lbmessage.setText("Tài khoản hoặc mật không không được để trống");
+        } else {
+            User user = AuthService.getInstance().login(username, password);
+            if (user == null) {
+                lbmessage.setText("Tài khoản hoặc mật khẩu không đúng");
+
+            } else {
+                UserManager mf = new UserManager();
+                mf.setVisible(true);
+                dispose();
+
+            }
         }
 
-        User user = AuthService.getInstance().login(username, password);
-        if (user == null) {
-            JOptionPane.showMessageDialog(rootPane, "Tài khoản hoặc mật khẩu không đúng", "Thông báo", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        UserManager mf = new UserManager();
-        mf.setVisible(true);
-        dispose();
+
     }//GEN-LAST:event_btnLogin1ActionPerformed
 
     private void btnRegistryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistryActionPerformed
@@ -242,6 +256,10 @@ public class Login extends javax.swing.JFrame {
     private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsernameActionPerformed
+
+    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -291,6 +309,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbmessage;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables

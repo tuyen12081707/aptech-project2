@@ -3,26 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/GUI/Login.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/ProductJpaController.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/AuthService.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/vn/aptech/prject2/services/AbstractFacade.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/dao/Catalog.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/dao/Orders.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/ProductServices.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/dao/User.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/META-INF/persistence.xml</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/dao/Product.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/UserJpaController.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/dao/Transaction.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/Database/salescar.sql</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/TransactionJpaController.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/AbstractFacade.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/GUI/TransactionMangerment.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/GUI/UserManager.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/OrdersJpaController.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/service/CatalogService.java</file>
-            <file>file:/C:/Users/DQT/Documents/GitHub/aptech-project2/src/aptech/project2/dao/AbstractDAO.java</file>
+            <file>file:/C:/Users/DQT/Desktop/aptech-project2/src/aptech/project2/GUI/TransactionMangerment.java</file>
+            <file>file:/C:/Users/DQT/Desktop/aptech-project2/src/aptech/project2/GUI/UserManager.java</file>
+            <file>file:/C:/Users/DQT/Desktop/aptech-project2/src/aptech/project2/GUI/OrderMangerment.java</file>
+            <file>file:/C:/Users/DQT/Desktop/aptech-project2/src/aptech/project2/GUI/Login.java</file>
+            <file>file:/C:/Users/DQT/Desktop/aptech-project2/src/aptech/project2/dao/Orders.java</file>
+            <file>file:/C:/Users/DQT/Desktop/aptech-project2/src/aptech/project2/dao/Product.java</file>
         </group>
     </open-files>
 </project-private>
