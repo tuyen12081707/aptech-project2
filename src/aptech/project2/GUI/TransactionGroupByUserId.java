@@ -7,7 +7,6 @@ package aptech.project2.GUI;
 
 import aptech.project2.common.DateCommon;
 import aptech.project2.constant.Constant;
-import aptech.project2.dao.Transaction;
 import aptech.project2.dao.User;
 import aptech.project2.service.UserService;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Admin
  */
-public class TransactionGroupByUserId extends javax.swing.JFrame {
+public final class TransactionGroupByUserId extends javax.swing.JFrame {
 
     private int userId = -1;
     private Long transactionId = null;
@@ -34,24 +33,26 @@ public class TransactionGroupByUserId extends javax.swing.JFrame {
      */
     public TransactionGroupByUserId() {
         initComponents();
-        this.loadData();
+        if (userId != -1) {
+            this.loadData();
+        }
     }
-
-  
 
     public void loadData() {
         DefaultTableModel tableModel = (DefaultTableModel) tblTransactionDetail.getModel();
         tableModel.setRowCount(0);
         System.out.println("getUserId : " + this.getUserId());
         User u = UserService.getInstace().find(this.getUserId());
-        for (Transaction t : u.getTransactionCollection()) {
+        u.getTransactionCollection().stream().map((t) -> {
             String status = selectStatus(t.getStatus());
-            String createDate = new DateCommon().convertDateToString(t.getCreatedAt(), Constant.DATE_FORMAT);
+            String createDate = DateCommon.convertDateToString(t.getCreatedAt(), Constant.DATE_FORMAT);
             Object[] rowData = new Object[]{
                 t.getId(), t.getUserId().getName(), status, t.getAmount(), t.getPayment(), t.getPaymentInfo(), t.getMessage(), createDate
             };
+            return rowData;
+        }).forEachOrdered((rowData) -> {
             tableModel.addRow(rowData);
-        }
+        });
     }
 
     /**
@@ -77,9 +78,9 @@ public class TransactionGroupByUserId extends javax.swing.JFrame {
         titleUser1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTransactionDetail = new javax.swing.JTable();
+        btnLoad = new javax.swing.JButton();
 
         titleUser.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        titleUser.setForeground(new java.awt.Color(0, 0, 0));
         titleUser.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         titleUser.setText("Transaction Managerment");
         titleUser.addActionListener(new java.awt.event.ActionListener() {
@@ -196,11 +197,10 @@ public class TransactionGroupByUserId extends javax.swing.JFrame {
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(139, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         titleUser1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        titleUser1.setForeground(new java.awt.Color(0, 0, 0));
         titleUser1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         titleUser1.setText("Transaction Detail");
         titleUser1.addActionListener(new java.awt.event.ActionListener() {
@@ -228,6 +228,14 @@ public class TransactionGroupByUserId extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblTransactionDetail);
         tblTransactionDetail.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
+        btnLoad.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/btn_loading.png"))); // NOI18N
+        btnLoad.setText("Loading Data");
+        btnLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoadActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -236,13 +244,15 @@ public class TransactionGroupByUserId extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(403, 403, 403)
-                        .addComponent(titleUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(titleUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLoad))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -250,8 +260,10 @@ public class TransactionGroupByUserId extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(titleUser1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnLoad)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -284,6 +296,10 @@ public class TransactionGroupByUserId extends javax.swing.JFrame {
 
     }//GEN-LAST:event_tblTransactionDetailMouseClicked
 
+    private void btnLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadActionPerformed
+        this.loadData();
+    }//GEN-LAST:event_btnLoadActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -312,14 +328,13 @@ public class TransactionGroupByUserId extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TransactionGroupByUserId().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new TransactionGroupByUserId().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLoad;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

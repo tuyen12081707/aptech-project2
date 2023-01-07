@@ -10,8 +10,11 @@ import aptech.project2.dao.Transaction;
 import aptech.project2.dao.User;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 
 /**
  *
@@ -32,7 +35,7 @@ public class TransactionService extends AbstractFacade<Transaction> {
         super(Transaction.class);
     }
 
- public void delteById(Long id) throws NonexistentEntityException {
+    public void delteById(Long id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -50,6 +53,22 @@ public class TransactionService extends AbstractFacade<Transaction> {
             if (em != null) {
                 em.close();
             }
+        }
+    }
+
+    public List<Transaction> sortDescTransaction(Object sort) {
+        EntityManager em = getEntityManager();
+        CriteriaQuery cq;
+        try {
+            cq = em.getCriteriaBuilder().createQuery();
+            cq.select(cq.from(Transaction.class));
+            if (sort instanceof String) {
+                cq.orderBy(em.getCriteriaBuilder().desc(cq.from(Transaction.class).get((String) sort)));
+            }
+            Query q = em.createQuery(cq);
+            return q.getResultList();
+        } finally {
+            em.close();
         }
     }
 
