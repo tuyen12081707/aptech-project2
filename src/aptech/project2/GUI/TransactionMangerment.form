@@ -72,7 +72,7 @@
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="txtAmount" max="32767" attributes="0"/>
                                           <Component id="SelPayment" pref="222" max="32767" attributes="0"/>
-                                          <Component id="txtDate" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="txtUpdateDate" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -158,7 +158,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="jTextField5" pref="39" max="32767" attributes="0"/>
-                  <Component id="txtDate" max="32767" attributes="0"/>
+                  <Component id="txtUpdateDate" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -188,7 +188,7 @@
         <Component class="javax.swing.JTable" name="tblTransaction">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="9" rowCount="3">
+              <Table columnCount="10" rowCount="3">
                 <Column editable="true" title="ID" type="java.lang.Object"/>
                 <Column editable="true" title="UserId" type="java.lang.Object"/>
                 <Column editable="true" title="Username" type="java.lang.Object"/>
@@ -198,6 +198,7 @@
                 <Column editable="true" title="PaymentInfo" type="java.lang.Object"/>
                 <Column editable="true" title="Message" type="java.lang.Object"/>
                 <Column editable="true" title="Create At" type="java.lang.Object"/>
+                <Column editable="true" title="Update at" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -233,6 +234,11 @@
                   <Renderer/>
                 </Column>
                 <Column maxWidth="1000" minWidth="300" prefWidth="-1" resizable="true">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -372,18 +378,18 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel11" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                                  <Component id="it_product" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
                                   <Component id="jLabel9" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
                                   <Component id="jLabel10" alignment="0" min="-2" pref="127" max="-2" attributes="0"/>
-                                  <Component id="jLabel13" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
+                                  <Component id="it_profile" alignment="0" min="-2" pref="95" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jLabel12" min="-2" pref="113" max="-2" attributes="0"/>
-                              <Component id="jLabel14" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
+                              <Component id="it_orders" min="-2" pref="113" max="-2" attributes="0"/>
+                              <Component id="it_catalog" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
                               <Component id="lbTransaction" alignment="0" min="-2" pref="113" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -399,15 +405,15 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel10" min="-2" pref="46" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel11" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="it_product" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Component id="lbTransaction" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel12" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="it_orders" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                  <Component id="jLabel14" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="it_catalog" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel13" min="-2" pref="47" max="-2" attributes="0"/>
+                  <Component id="it_profile" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jLabel9" min="-2" pref="47" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
@@ -449,7 +455,7 @@
             <Property name="text" type="java.lang.String" value="DashBoard"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel11">
+        <Component class="javax.swing.JLabel" name="it_product">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Century Gothic" size="14" style="1"/>
@@ -463,6 +469,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Product "/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="it_productMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
@@ -479,7 +488,7 @@
             <Property name="text" type="java.lang.String" value="Log Out"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel12">
+        <Component class="javax.swing.JLabel" name="it_orders">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Century Gothic" size="14" style="1"/>
@@ -493,8 +502,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Orders"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="it_ordersMouseClicked"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel13">
+        <Component class="javax.swing.JLabel" name="it_profile">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Century Gothic" size="14" style="1"/>
@@ -507,8 +519,11 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Profile"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="it_profileMouseClicked"/>
+          </Events>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel14">
+        <Component class="javax.swing.JLabel" name="it_catalog">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Century Gothic" size="14" style="1"/>
@@ -522,6 +537,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Catagories"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="it_catalogMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField6">
           <Properties>
@@ -659,12 +677,15 @@
         <Property name="text" type="java.lang.String" value="Update at"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="txtDate">
+    <Component class="javax.swing.JFormattedTextField" name="txtUpdateDate">
       <Properties>
         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
-          <Format format="dd-MM-yyyy" subtype="-1" type="1"/>
+          <Format subtype="1" type="1"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtUpdateDateActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

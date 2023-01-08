@@ -32,6 +32,7 @@ import javax.swing.table.DefaultTableModel;
 public class TransactionMangerment extends javax.swing.JFrame {
 
     private Long transactionId = null;
+    private Date currentDate;
     private Transaction transaction = null;
     private final String DELETE_SUCCESS = "Xoá Thành Công";
     private boolean flagInsert = false;
@@ -73,11 +74,11 @@ public class TransactionMangerment extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        it_product = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        it_orders = new javax.swing.JLabel();
+        it_profile = new javax.swing.JLabel();
+        it_catalog = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
         lbTransaction = new javax.swing.JLabel();
         txtUserId = new javax.swing.JTextField();
@@ -91,7 +92,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
         btnDetail = new javax.swing.JButton();
         btnSort = new javax.swing.JButton();
         jTextField5 = new javax.swing.JTextField();
-        txtDate = new javax.swing.JFormattedTextField();
+        txtUpdateDate = new javax.swing.JFormattedTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,12 +110,12 @@ public class TransactionMangerment extends javax.swing.JFrame {
 
         tblTransaction.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "UserId", "Username", "Status", "Amount", "Payment", "PaymentInfo", "Message", "Create At"
+                "ID", "UserId", "Username", "Status", "Amount", "Payment", "PaymentInfo", "Message", "Create At", "Update at"
             }
         ));
         tblTransaction.setColumnSelectionAllowed(true);
@@ -212,11 +213,16 @@ public class TransactionMangerment extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_home.png"))); // NOI18N
         jLabel10.setText("DashBoard");
 
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel11.setForeground(java.awt.Color.lightGray);
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_product.png"))); // NOI18N
-        jLabel11.setText("Product ");
+        it_product.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        it_product.setForeground(java.awt.Color.lightGray);
+        it_product.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        it_product.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_product.png"))); // NOI18N
+        it_product.setText("Product ");
+        it_product.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                it_productMouseClicked(evt);
+            }
+        });
 
         jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
@@ -224,22 +230,37 @@ public class TransactionMangerment extends javax.swing.JFrame {
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/logout.png"))); // NOI18N
         jLabel17.setText("Log Out");
 
-        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel12.setForeground(java.awt.Color.lightGray);
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_orders.png"))); // NOI18N
-        jLabel12.setText("Orders");
+        it_orders.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        it_orders.setForeground(java.awt.Color.lightGray);
+        it_orders.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        it_orders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_orders.png"))); // NOI18N
+        it_orders.setText("Orders");
+        it_orders.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                it_ordersMouseClicked(evt);
+            }
+        });
 
-        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel13.setForeground(java.awt.Color.lightGray);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_user.png"))); // NOI18N
-        jLabel13.setText("Profile");
+        it_profile.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        it_profile.setForeground(java.awt.Color.lightGray);
+        it_profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_user.png"))); // NOI18N
+        it_profile.setText("Profile");
+        it_profile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                it_profileMouseClicked(evt);
+            }
+        });
 
-        jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel14.setForeground(java.awt.Color.lightGray);
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_catalog.png"))); // NOI18N
-        jLabel14.setText("Catagories");
+        it_catalog.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        it_catalog.setForeground(java.awt.Color.lightGray);
+        it_catalog.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        it_catalog.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_catalog.png"))); // NOI18N
+        it_catalog.setText("Catagories");
+        it_catalog.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                it_catalogMouseClicked(evt);
+            }
+        });
 
         jTextField6.setBackground(new java.awt.Color(84, 104, 255));
         jTextField6.setFont(new java.awt.Font("Franklin Gothic Book", 1, 24)); // NOI18N
@@ -273,15 +294,15 @@ public class TransactionMangerment extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(it_product, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(it_profile, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(it_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(it_catalog, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -292,15 +313,15 @@ public class TransactionMangerment extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(it_product, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(lbTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(it_orders, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
-                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(it_catalog, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(it_profile, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(53, 53, 53)
@@ -361,7 +382,12 @@ public class TransactionMangerment extends javax.swing.JFrame {
 
         jTextField5.setText("Update at");
 
-        txtDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd-MM-yyyy"))));
+        txtUpdateDate.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
+        txtUpdateDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUpdateDateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -392,7 +418,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtAmount)
                                             .addComponent(SelPayment, 0, 222, Short.MAX_VALUE)
-                                            .addComponent(txtDate))))
+                                            .addComponent(txtUpdateDate))))
                                 .addGap(74, 74, 74))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -454,7 +480,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                    .addComponent(txtDate))
+                    .addComponent(txtUpdateDate))
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnLoad, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -527,10 +553,13 @@ public class TransactionMangerment extends javax.swing.JFrame {
         SelStatus.addItem(DAT_COC);
         transactions.stream().forEach(t -> {
             String status = selectStatus(t.getStatus());
+            this.currentDate = new Date();
+            currentDate = t.getCreatedAt();
             String createDate = new DateCommon().convertDateToString(t.getCreatedAt(), Constant.DATE_FORMAT);
+            String updateDate = new DateCommon().convertDateToString(t.getUpdateAt(), Constant.DATE_FORMAT);
             SelPayment.addItem(t.getPayment());
             Object[] rowData = new Object[]{
-                t.getId(), t.getUserId().getId(), t.getUserId().getName(), status, t.getAmount(), t.getPayment(), t.getPaymentInfo(), t.getMessage(), createDate
+                t.getId(), t.getUserId().getId(), t.getUserId().getName(), status, t.getAmount(), t.getPayment(), t.getPaymentInfo(), t.getMessage(), createDate, updateDate
             };
             tableModel.addRow(rowData);
 
@@ -554,7 +583,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
             transaction.setPaymentInfo(this.txtPaymentInfo.getText());
             transaction.setPayment(this.SelPayment.getModel().getSelectedItem().toString());
             transaction.setStatus(newStatus);
-            transaction.setCreatedAt(new Date());
+            transaction.setCreatedAt(currentDate);
             transaction.setUpdateAt(new Date());
             System.out.println("transaction" + transaction.toString());
             TransactionService.getInstance().create(transaction);
@@ -573,6 +602,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
                 transaction.setPaymentInfo(this.txtPaymentInfo.getText());
                 transaction.setPayment(this.SelPayment.getModel().getSelectedItem().toString());
                 transaction.setStatus(newStatus);
+                Date updateDate = new DateCommon().convertStringToDate(this.txtUpdateDate.getText());
+                System.out.println("update date " + updateDate);
                 TransactionService.getInstance().edit(transaction);
             } catch (Exception ex) {
                 Logger.getLogger(TransactionMangerment.class.getName()).log(Level.SEVERE, null, ex);
@@ -649,14 +680,45 @@ public class TransactionMangerment extends javax.swing.JFrame {
         transactions.stream().forEach(t -> {
             String status = selectStatus(t.getStatus());
             String createDate = new DateCommon().convertDateToString(t.getCreatedAt(), Constant.DATE_FORMAT);
+            String updateDate = new DateCommon().convertDateToString(t.getUpdateAt(), Constant.DATE_FORMAT);
             SelPayment.addItem(t.getPayment());
             Object[] rowData = new Object[]{
-                t.getId(), t.getUserId().getId(), t.getUserId().getName(), status, t.getAmount(), t.getPayment(), t.getPaymentInfo(), t.getMessage(), createDate
+                t.getId(), t.getUserId().getId(), t.getUserId().getName(), status, t.getAmount(), t.getPayment(), t.getPaymentInfo(), t.getMessage(), createDate, updateDate
             };
             tableModel.addRow(rowData);
 
         });
     }//GEN-LAST:event_btnSortActionPerformed
+
+    private void txtUpdateDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUpdateDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUpdateDateActionPerformed
+
+    private void it_productMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_it_productMouseClicked
+        // TODO add your handling code here:
+        ProductManagement pm = new ProductManagement();
+        pm.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_it_productMouseClicked
+
+    private void it_ordersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_it_ordersMouseClicked
+        // TODO add your handling code here:
+        OrderMangerment om = new OrderMangerment();
+        om.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_it_ordersMouseClicked
+
+    private void it_catalogMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_it_catalogMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_it_catalogMouseClicked
+
+    private void it_profileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_it_profileMouseClicked
+        // TODO add your handling code here:
+        UserManager um = new UserManager();
+        um.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_it_profileMouseClicked
     private void selectDatePayment() {
         List<Transaction> transactions = TransactionJpaController.getInstance().findTransactionEntities();
         SelPayment.removeAllItems();
@@ -671,7 +733,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
             userDetail = new TransactionGroupByUserId();
             userDetail.setUserId(id);
             userDetail.setVisible(true);
-            System.out.println("-----------id" + id);
+            dispose();
         }
     }
 
@@ -702,6 +764,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
         this.txtMessage.setText(transaction.getMessage());
         this.txtPaymentInfo.setText(transaction.getPaymentInfo());
         this.SelPayment.getModel().setSelectedItem(transaction.getPayment());
+        this.txtUpdateDate.setText(DateCommon.convertDateToString(transaction.getUpdateAt()));
         if (transaction.getStatus() == 1) {
             this.SelStatus.getModel().setSelectedItem(DA_THANH_TOAN);
 
@@ -757,11 +820,11 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnLoad;
     private javax.swing.JButton btnSort;
+    private javax.swing.JLabel it_catalog;
+    private javax.swing.JLabel it_orders;
+    private javax.swing.JLabel it_product;
+    private javax.swing.JLabel it_profile;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -779,9 +842,9 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private javax.swing.JTable tblTransaction;
     private javax.swing.JTextField titleUser;
     private javax.swing.JTextField txtAmount;
-    private javax.swing.JFormattedTextField txtDate;
     private javax.swing.JTextField txtMessage;
     private javax.swing.JTextField txtPaymentInfo;
+    private javax.swing.JFormattedTextField txtUpdateDate;
     private javax.swing.JTextField txtUserId;
     // End of variables declaration//GEN-END:variables
 
