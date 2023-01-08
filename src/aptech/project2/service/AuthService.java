@@ -28,9 +28,9 @@ public class AuthService {
             instance = new AuthService();
         }
         return instance;
-    }   
-        public User login(String username, String password) {
     }
+
+  
 
     public User login(String username, String password) {
         EntityManager em = null;
