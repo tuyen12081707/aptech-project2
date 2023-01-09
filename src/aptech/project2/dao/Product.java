@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Product.findByImageLink", query = "SELECT p FROM Product p WHERE p.imageLink = :imageLink")
     , @NamedQuery(name = "Product.findByCreatedAt", query = "SELECT p FROM Product p WHERE p.createdAt = :createdAt")
     , @NamedQuery(name = "Product.findByUpdateAt", query = "SELECT p FROM Product p WHERE p.updateAt = :updateAt")
+    , @NamedQuery(name = "Product.findByNames", query = "SELECT p FROM Product p WHERE p.name like :name")
     , @NamedQuery(name = "Product.findByView", query = "SELECT p FROM Product p WHERE p.view = :view")})
 public class Product implements Serializable {
 
