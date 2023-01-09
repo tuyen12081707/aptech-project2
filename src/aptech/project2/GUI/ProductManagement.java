@@ -13,6 +13,7 @@ import aptech.project2.service.ProductJpaController;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
 import com.mysql.jdbc.RowData;
+import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -93,6 +94,9 @@ public class ProductManagement extends javax.swing.JFrame {
         SelCatalog = new javax.swing.JComboBox<>();
         btnSort = new javax.swing.JButton();
         btnGroupCatalogs = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        txtProductNameSearch = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -357,6 +361,23 @@ public class ProductManagement extends javax.swing.JFrame {
             }
         });
 
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel16.setText("Search product");
+
+        txtProductNameSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtProductNameSearchKeyReleased(evt);
+            }
+        });
+
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/btn_check.png"))); // NOI18N
+        btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -382,7 +403,14 @@ public class ProductManagement extends javax.swing.JFrame {
                                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(243, 243, 243))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(SelCatalog, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(SelCatalog, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtProductNameSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,7 +451,11 @@ public class ProductManagement extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProductNameSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -609,6 +641,41 @@ public class ProductManagement extends javax.swing.JFrame {
         selectCata.dispose();
     }//GEN-LAST:event_btnOKActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        String name = txtProductNameSearch.getText();
+        products = ProductJpaController.getInstance().findProductbyname(name);
+        showonTable(products);
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void txtProductNameSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductNameSearchKeyReleased
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_DELETE) {
+
+        } else {
+            loadData();
+            String to_check = txtProductNameSearch.getText();
+            int to_check_length = to_check.length();
+            List<String> productname = products.stream()
+                    .map(Product::getName)
+                    .collect(Collectors.toList());
+            for (String data : productname) {
+                String check_from_data = "";
+                for (int i = 0; i < to_check_length; i++) {
+                    if (to_check_length <= data.length()) {
+                        check_from_data = check_from_data + data.charAt(i);
+                    }
+                }
+                if (check_from_data.equals(to_check)) {
+                    txtProductNameSearch.setText(data);
+                    txtProductNameSearch.setSelectionStart(to_check_length);
+                    txtProductNameSearch.setSelectionEnd(data.length());
+                }
+            }
+        }
+
+    }//GEN-LAST:event_txtProductNameSearchKeyReleased
+
     private void displayDetail(int productid) {
         this.product = ProductJpaController.getInstance().findProduct(productid);
         this.txtProductName.setText(product.getName());
@@ -675,6 +742,7 @@ public class ProductManagement extends javax.swing.JFrame {
     private javax.swing.JButton btnGroupCatalogs;
     private javax.swing.JButton btnLoad;
     private javax.swing.JButton btnOK;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSort;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -683,6 +751,7 @@ public class ProductManagement extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -703,6 +772,7 @@ public class ProductManagement extends javax.swing.JFrame {
     private javax.swing.JTextField txtProductDiscount;
     private javax.swing.JTextField txtProductImageLink;
     private javax.swing.JTextField txtProductName;
+    private javax.swing.JTextField txtProductNameSearch;
     private javax.swing.JTextField txtProductPrice;
     private javax.swing.JTextField txtProductView;
     // End of variables declaration//GEN-END:variables
