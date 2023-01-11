@@ -6,10 +6,10 @@
 package aptech.project2.GUI;
 
 import aptech.project2.common.ValidateCommon;
-import aptech.project2.dao.Orders;
-import aptech.project2.dao.Product;
-import aptech.project2.dao.Transaction;
-import aptech.project2.dao.User;
+import aptech.project2.model.Orders;
+import aptech.project2.model.Product;
+import aptech.project2.model.Transaction;
+import aptech.project2.model.User;
 import aptech.project2.service.OrdersJpaController;
 import aptech.project2.service.ProductJpaController;
 import aptech.project2.service.ProductServices;

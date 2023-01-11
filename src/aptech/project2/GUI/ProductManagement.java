@@ -6,8 +6,8 @@
 package aptech.project2.GUI;
 
 import aptech.project2.common.ValidateCommon;
-import aptech.project2.dao.Catalog;
-import aptech.project2.dao.Product;
+import aptech.project2.model.Catalog;
+import aptech.project2.model.Product;
 import aptech.project2.service.CatalogJpaController;
 import aptech.project2.service.ProductJpaController;
 import aptech.project2.service.exceptions.NonexistentEntityException;

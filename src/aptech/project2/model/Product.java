@@ -3,10 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aptech.project2.dao;
+package aptech.project2.model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -30,7 +29,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Admin
+ * @author DQT
  */
 @Entity
 @Table(name = "product")
@@ -40,12 +39,12 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Product.findById", query = "SELECT p FROM Product p WHERE p.id = :id")
     , @NamedQuery(name = "Product.findByName", query = "SELECT p FROM Product p WHERE p.name = :name")
     , @NamedQuery(name = "Product.findByPrice", query = "SELECT p FROM Product p WHERE p.price = :price")
+    , @NamedQuery(name = "Product.findByQuantity", query = "SELECT p FROM Product p WHERE p.quantity = :quantity")
     , @NamedQuery(name = "Product.findByDiscount", query = "SELECT p FROM Product p WHERE p.discount = :discount")
-    , @NamedQuery(name = "Product.findByImageLink", query = "SELECT p FROM Product p WHERE p.imageLink = :imageLink")
+    , @NamedQuery(name = "Product.findByImage", query = "SELECT p FROM Product p WHERE p.image = :image")
     , @NamedQuery(name = "Product.findByCreatedAt", query = "SELECT p FROM Product p WHERE p.createdAt = :createdAt")
-    , @NamedQuery(name = "Product.findByUpdateAt", query = "SELECT p FROM Product p WHERE p.updateAt = :updateAt")
-    , @NamedQuery(name = "Product.findByNames", query = "SELECT p FROM Product p WHERE p.name like :name")
-    , @NamedQuery(name = "Product.findByView", query = "SELECT p FROM Product p WHERE p.view = :view")})
+    , @NamedQuery(name = "Product.findByModifedAt", query = "SELECT p FROM Product p WHERE p.modifedAt = :modifedAt")
+    , @NamedQuery(name = "Product.findByStatus", query = "SELECT p FROM Product p WHERE p.status = :status")})
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,10 +56,12 @@ public class Product implements Serializable {
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @Column(name = "price")
-    private BigDecimal price;
+    private int price;
+    @Basic(optional = false)
+    @Column(name = "quantity")
+    private int quantity;
     @Basic(optional = false)
     @Lob
     @Column(name = "content")
@@ -69,23 +70,19 @@ public class Product implements Serializable {
     @Column(name = "discount")
     private int discount;
     @Basic(optional = false)
-    @Column(name = "image_link")
-    private String imageLink;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "image_list")
-    private String imageList;
+    @Column(name = "image")
+    private String image;
     @Basic(optional = false)
     @Column(name = "created_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @Basic(optional = false)
-    @Column(name = "update_at")
+    @Column(name = "modifed_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updateAt;
+    private Date modifedAt;
     @Basic(optional = false)
-    @Column(name = "view")
-    private int view;
+    @Column(name = "status")
+    private short status;
     @JoinColumn(name = "catalog_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Catalog catalogId;
@@ -99,17 +96,17 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Product(Integer id, String name, BigDecimal price, String content, int discount, String imageLink, String imageList, Date createdAt, Date updateAt, int view) {
+    public Product(Integer id, String name, int price, int quantity, String content, int discount, String image, Date createdAt, Date modifedAt, short status) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.quantity = quantity;
         this.content = content;
         this.discount = discount;
-        this.imageLink = imageLink;
-        this.imageList = imageList;
+        this.image = image;
         this.createdAt = createdAt;
-        this.updateAt = updateAt;
-        this.view = view;
+        this.modifedAt = modifedAt;
+        this.status = status;
     }
 
     public Integer getId() {
@@ -128,12 +125,20 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public String getContent() {
@@ -152,20 +157,12 @@ public class Product implements Serializable {
         this.discount = discount;
     }
 
-    public String getImageLink() {
-        return imageLink;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
-    }
-
-    public String getImageList() {
-        return imageList;
-    }
-
-    public void setImageList(String imageList) {
-        this.imageList = imageList;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public Date getCreatedAt() {
@@ -176,20 +173,20 @@ public class Product implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getModifedAt() {
+        return modifedAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+    public void setModifedAt(Date modifedAt) {
+        this.modifedAt = modifedAt;
     }
 
-    public int getView() {
-        return view;
+    public short getStatus() {
+        return status;
     }
 
-    public void setView(int view) {
-        this.view = view;
+    public void setStatus(short status) {
+        this.status = status;
     }
 
     public Catalog getCatalogId() {
@@ -233,7 +230,5 @@ public class Product implements Serializable {
     public String toString() {
         return "aptech.project2.dao.Product[ id=" + id + " ]";
     }
-    
-   
     
 }

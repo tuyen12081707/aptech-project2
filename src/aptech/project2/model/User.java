@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aptech.project2.dao;
+package aptech.project2.model;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Admin
+ * @author DQT
  */
 @Entity
 @Table(name = "user")
@@ -40,11 +40,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "User.findByPhone", query = "SELECT u FROM User u WHERE u.phone = :phone")
     , @NamedQuery(name = "User.findByAddress", query = "SELECT u FROM User u WHERE u.address = :address")
     , @NamedQuery(name = "User.findByRole", query = "SELECT u FROM User u WHERE u.role = :role")
+    , @NamedQuery(name = "User.findByStatus", query = "SELECT u FROM User u WHERE u.status = :status")
     , @NamedQuery(name = "User.findByPassword", query = "SELECT u FROM User u WHERE u.password = :password")
     , @NamedQuery(name = "User.findByCreatedAt", query = "SELECT u FROM User u WHERE u.createdAt = :createdAt")
-    , @NamedQuery(name = "User.findByUpdateAt", query = "SELECT u FROM User u WHERE u.updateAt = :updateAt")
-    , @NamedQuery(name = "User.login", query = "SELECT u FROM User u WHERE u.username = :username and u.password= :password"),
-})
+    , @NamedQuery(name = "User.findByModifedAt", query = "SELECT u FROM User u WHERE u.modifedAt = :modifedAt")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -72,6 +71,9 @@ public class User implements Serializable {
     @Column(name = "role")
     private int role;
     @Basic(optional = false)
+    @Column(name = "status")
+    private int status;
+    @Basic(optional = false)
     @Column(name = "password")
     private String password;
     @Basic(optional = false)
@@ -79,9 +81,9 @@ public class User implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @Basic(optional = false)
-    @Column(name = "update_at")
+    @Column(name = "modifed_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updateAt;
+    private Date modifedAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Transaction> transactionCollection;
 
@@ -92,7 +94,7 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public User(Integer id, String username, String name, String email, String phone, String address, int role, String password, Date createdAt, Date updateAt) {
+    public User(Integer id, String username, String name, String email, String phone, String address, int role, int status, String password, Date createdAt, Date modifedAt) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -100,9 +102,10 @@ public class User implements Serializable {
         this.phone = phone;
         this.address = address;
         this.role = role;
+        this.status = status;
         this.password = password;
         this.createdAt = createdAt;
-        this.updateAt = updateAt;
+        this.modifedAt = modifedAt;
     }
 
     public Integer getId() {
@@ -161,6 +164,14 @@ public class User implements Serializable {
         this.role = role;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -177,12 +188,12 @@ public class User implements Serializable {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getModifedAt() {
+        return modifedAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+    public void setModifedAt(Date modifedAt) {
+        this.modifedAt = modifedAt;
     }
 
     @XmlTransient
@@ -218,5 +229,5 @@ public class User implements Serializable {
     public String toString() {
         return "aptech.project2.dao.User[ id=" + id + " ]";
     }
-
+    
 }

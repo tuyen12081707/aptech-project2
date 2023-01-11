@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package aptech.project2.dao;
+package aptech.project2.model;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Admin
+ * @author DQT
  */
 @Entity
 @Table(name = "catalog")
@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Catalog.findById", query = "SELECT c FROM Catalog c WHERE c.id = :id")
     , @NamedQuery(name = "Catalog.findByName", query = "SELECT c FROM Catalog c WHERE c.name = :name")
     , @NamedQuery(name = "Catalog.findByCreateAt", query = "SELECT c FROM Catalog c WHERE c.createAt = :createAt")
-    , @NamedQuery(name = "Catalog.findByUpdateAt", query = "SELECT c FROM Catalog c WHERE c.updateAt = :updateAt")})
+    , @NamedQuery(name = "Catalog.findByModifedAt", query = "SELECT c FROM Catalog c WHERE c.modifedAt = :modifedAt")})
 public class Catalog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,9 +53,9 @@ public class Catalog implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
     @Basic(optional = false)
-    @Column(name = "update_at")
+    @Column(name = "modifed_at")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date updateAt;
+    private Date modifedAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "catalogId")
     private Collection<Product> productCollection;
 
@@ -66,11 +66,11 @@ public class Catalog implements Serializable {
         this.id = id;
     }
 
-    public Catalog(Integer id, String name, Date createAt, Date updateAt) {
+    public Catalog(Integer id, String name, Date createAt, Date modifedAt) {
         this.id = id;
         this.name = name;
         this.createAt = createAt;
-        this.updateAt = updateAt;
+        this.modifedAt = modifedAt;
     }
 
     public Integer getId() {
@@ -97,12 +97,12 @@ public class Catalog implements Serializable {
         this.createAt = createAt;
     }
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getModifedAt() {
+        return modifedAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+    public void setModifedAt(Date modifedAt) {
+        this.modifedAt = modifedAt;
     }
 
     @XmlTransient

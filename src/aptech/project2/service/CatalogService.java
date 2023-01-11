@@ -5,8 +5,7 @@
  */
 package aptech.project2.service;
 
-import aptech.project2.dao.Catalog;
-import aptech.project2.entities.Product;
+import aptech.project2.model.Catalog;
 import aptech.project2.utilities.JPAUtil;
 import javax.persistence.EntityManager;
 
@@ -35,7 +34,7 @@ public class CatalogService extends AbstractFacade<Catalog>{
     }
     public static void main(String[] args) {
         Catalog c = CatalogService.getInstance().find(1);
-        for (aptech.project2.dao.Product p : c.getProductCollection()){
+        for (aptech.project2.model.Product p : c.getProductCollection()){
             System.out.println("Product name: " + p.getName());
         }
     }

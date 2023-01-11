@@ -7,7 +7,7 @@ package aptech.project2.service;
 
 import aptech.project2.common.FileCommon;
 import aptech.project2.constant.Constant1;
-import aptech.project2.dao.Orders;
+import aptech.project2.model.Orders;
 import aptech.project2.jasper.JasperPrintService;
 import java.io.File;
 import java.io.FileInputStream;
