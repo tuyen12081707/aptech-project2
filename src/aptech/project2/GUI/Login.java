@@ -5,7 +5,7 @@
  */
 package aptech.project2.GUI;
 
-import aptech.project2.dao.User;
+import aptech.project2.model.User;
 import aptech.project2.service.AuthService;
 import javax.swing.JOptionPane;
 

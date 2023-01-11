@@ -5,9 +5,8 @@
  */
 package aptech.project2.service;
 
-import aptech.project2.dao.Product;
+import aptech.project2.model.Product;
 import aptech.project2.utilities.JPAUtil;
-import aptech.project2.utilities.MD5Util;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 

@@ -6,7 +6,7 @@
 package aptech.project2.GUI;
 
 import aptech.project2.common.ValidateCommon;
-import aptech.project2.dao.User;
+import aptech.project2.model.User;
 import aptech.project2.service.UserJpaController;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;

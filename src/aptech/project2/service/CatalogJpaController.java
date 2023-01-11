@@ -5,7 +5,7 @@
  */
 package aptech.project2.service;
 
-import aptech.project2.dao.Catalog;
+import aptech.project2.model.Catalog;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
 import java.io.Serializable;

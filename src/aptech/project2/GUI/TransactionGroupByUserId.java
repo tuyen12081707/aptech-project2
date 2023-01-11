@@ -7,8 +7,8 @@ package aptech.project2.GUI;
 
 import aptech.project2.common.DateCommon;
 import aptech.project2.constant.Constant;
-import aptech.project2.dao.Transaction;
-import aptech.project2.dao.User;
+import aptech.project2.model.Transaction;
+import aptech.project2.model.User;
 import aptech.project2.service.UserService;
 import javax.swing.table.DefaultTableModel;
 

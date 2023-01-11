@@ -5,7 +5,6 @@
  */
 package aptech.project2;
 
-import aptech.project2.entities.Users;
 import aptech.project2.utilities.DBConnection;
 
 import java.sql.Connection;

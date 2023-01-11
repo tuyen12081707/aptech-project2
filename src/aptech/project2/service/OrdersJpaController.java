@@ -5,7 +5,7 @@
  */
 package aptech.project2.service;
 
-import aptech.project2.dao.Orders;
+import aptech.project2.model.Orders;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
 import java.io.Serializable;
