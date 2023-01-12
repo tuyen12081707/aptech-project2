@@ -42,7 +42,14 @@ public class ValidateCommon {
         Matcher m = p.matcher(phone);
         return m.matches();
     }
-
+    
+    public static boolean isValidEmail(String email) {
+        String regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(email);
+        return m.matches();
+    }
+    
     public static boolean isValidCharacter(String name) throws PatternSyntaxException {
         String regex = "^[A-Za-z0-9\\s\\-_,\\.:;()''\"\"]+$";
         Pattern p = Pattern.compile(regex);
