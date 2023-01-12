@@ -32,6 +32,7 @@ public class JPAUtil {
     public EntityManagerFactory getFactory() {
         if (factory == null) {
             factory = Persistence.createEntityManagerFactory("aptech-project2PU");
+            
         }
         return factory;
     }
