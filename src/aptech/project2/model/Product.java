@@ -230,5 +230,18 @@ public class Product implements Serializable {
     public String toString() {
         return "aptech.project2.dao.Product[ id=" + id + " ]";
     }
+
+    public Product(String name, int price, int quantity, String content, int discount, String image, short status, Catalog catalogId) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.content = content;
+        this.discount = discount;
+        this.image = image;
+        this.status = status;
+        this.catalogId = catalogId;
+    }
+    
+    
     
 }

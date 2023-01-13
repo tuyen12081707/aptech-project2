@@ -131,6 +131,26 @@ public class CatalogJpaController implements Serializable {
             em.close();
         }
     }
+    
+    public Catalog findCatalog(String name) {
+        EntityManager em = null;
+        try {
+            em = JPAUtil.getInstance().getEntityManager();
+            Query query = em.createNamedQuery("Catalog.findByName", Catalog.class);
+            query.setParameter("name", name);
+            Catalog catalog = (Catalog) query.getSingleResult();
+            if (catalog == null) {
+                return null;
+            }
+            return catalog;
+        } catch (Exception e) {
+            return null;
+        } finally {
+            if (em != null) {
+                em.close();
+            }
+        }
+    }
 
     public int getCatalogCount() {
         EntityManager em = getEntityManager();
