@@ -87,23 +87,24 @@
 		</queryString>
 		<field name="productName" class="java.lang.String"/>
 		<field name="quantity" class="java.lang.Integer"/>
-		<field name="productPrice" class="java.lang.Double"/>
-		<field name="totalPrice" class="java.lang.Double"/>
-		<variable name="totalAmount" class="java.lang.Integer" calculation="Sum">
-			<variableExpression><![CDATA[$F{totalPrice}]]></variableExpression>
-		</variable>
+		<field name="productPrice" class="java.lang.Integer"/>
+		<field name="totalAmount" class="java.lang.Integer"/>
 	</subDataset>
 	<parameter name="ItemDataSource" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource"/>
 	<parameter name="cashier" class="java.lang.String"/>
 	<parameter name="customerName" class="java.lang.String"/>
 	<parameter name="customerAddress" class="java.lang.String"/>
 	<parameter name="customerPhone" class="java.lang.String"/>
-	<parameter name="invoiceNumber" class="java.lang.Integer"/>
+	<parameter name="invoiceNumber" class="java.lang.String"/>
+	<parameter name="productName" class="java.lang.String"/>
+	<parameter name="quantity" class="java.lang.Integer"/>
+	<parameter name="productPrice" class="java.lang.Integer"/>
+	<parameter name="total" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
 	<title>
-		<band height="210" splitType="Stretch">
+		<band height="177" splitType="Stretch">
 			<staticText>
 				<reportElement style="RobotoStyle" x="0" y="90" width="555" height="25" uuid="57aed2b1-4f4e-40a3-a6ad-54dae8dd4c5a">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -114,10 +115,6 @@
 				</textElement>
 				<text><![CDATA[Hóa đơn bán hàng]]></text>
 			</staticText>
-			<staticText>
-				<reportElement x="15" y="130" width="93" height="20" uuid="33274f5d-5b7e-4be2-a2ff-65d452a618ed"/>
-				<text><![CDATA[Thu ngân:]]></text>
-			</staticText>
 			<line>
 				<reportElement x="0" y="80" width="556" height="1" uuid="806ce5df-1219-4876-ae0c-ca7405b1f246">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -125,13 +122,13 @@
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="415" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
+				<reportElement x="399" y="10" width="50" height="20" uuid="0f86baff-6386-4f3f-b3fe-2388707babe8"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Right"/>
+				<textElement textAlignment="Left"/>
 				<text><![CDATA[Ngày:]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight" pattern="dd/MM/yyyy">
-				<reportElement x="465" y="10" width="84" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
+				<reportElement x="449" y="10" width="106" height="20" uuid="bb10dbe1-0a4f-4722-9953-c163b63cf979"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<image hAlign="Center">
@@ -139,14 +136,14 @@
 				<imageExpression><![CDATA["invoice_logo.png"]]></imageExpression>
 			</image>
 			<textField textAdjust="StretchHeight">
-				<reportElement x="465" y="30" width="84" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
+				<reportElement x="449" y="30" width="106" height="20" uuid="3836ce65-eca3-4cad-a6de-b1818def0a2b"/>
 				<textFieldExpression><![CDATA[$P{invoiceNumber}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="415" y="30" width="50" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
+				<reportElement x="399" y="30" width="50" height="20" uuid="0b3f9342-da78-4cfa-9fc5-2301c4749678"/>
 				<box rightPadding="4"/>
-				<textElement textAlignment="Right"/>
-				<text><![CDATA[Số #]]></text>
+				<textElement textAlignment="Left"/>
+				<text><![CDATA[Số:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="25" width="210" height="25" uuid="e622555d-198b-4ccd-a4a1-c59c53304058">
@@ -156,7 +153,7 @@
 				<textElement>
 					<font size="19" isBold="true"/>
 				</textElement>
-				<text><![CDATA[E-SuperMarket]]></text>
+				<text><![CDATA[APTECH AUTO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="50" width="285" height="15" uuid="c226e44d-3bb5-4145-b0b3-903bf1d79fde"/>
@@ -164,43 +161,36 @@
 			</staticText>
 			<staticText>
 				<reportElement x="0" y="65" width="205" height="15" uuid="b96f7183-44f8-43ad-ba60-43d8fbf50b6e"/>
-				<text><![CDATA[038 2020 858]]></text>
+				<text><![CDATA[0987654321]]></text>
 			</staticText>
-			<textField textAdjust="StretchHeight">
-				<reportElement style="RobotoStyle" x="110" y="130" width="200" height="20" uuid="15dadea1-33c5-4fed-b696-512e77f65322"/>
-				<textElement>
-					<font fontName="Roboto" pdfEncoding="Identity-H"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{cashier}]]></textFieldExpression>
-			</textField>
 			<staticText>
-				<reportElement x="15" y="150" width="94" height="20" uuid="a3838360-6784-44df-a488-799ece4751a3"/>
+				<reportElement x="15" y="117" width="94" height="20" uuid="a3838360-6784-44df-a488-799ece4751a3"/>
 				<text><![CDATA[Khách hàng:]]></text>
 			</staticText>
 			<textField textAdjust="StretchHeight">
-				<reportElement style="RobotoStyle" x="110" y="150" width="200" height="20" uuid="1894c849-728b-448d-abb7-9a262bb760d1"/>
+				<reportElement style="RobotoStyle" x="110" y="117" width="200" height="20" uuid="1894c849-728b-448d-abb7-9a262bb760d1"/>
 				<textElement>
 					<font fontName="Roboto" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{customerName} == null ? "" : $P{customerName}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="15" y="170" width="94" height="20" uuid="c1cbb42b-3b35-496e-abcd-9306db61e363"/>
+				<reportElement x="15" y="137" width="94" height="20" uuid="c1cbb42b-3b35-496e-abcd-9306db61e363"/>
 				<text><![CDATA[Địa chỉ:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="RobotoStyle" x="110" y="170" width="300" height="20" uuid="d2b7fdda-5c57-4c82-982b-c4bdbd941a0d"/>
+				<reportElement style="RobotoStyle" x="110" y="137" width="300" height="20" uuid="d2b7fdda-5c57-4c82-982b-c4bdbd941a0d"/>
 				<textElement>
 					<font fontName="Roboto" pdfEncoding="Identity-H"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{customerAddress} == null ? "" : $P{customerAddress}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="14" y="190" width="94" height="20" uuid="1ad0b5ee-e395-4255-959d-a55e43647934"/>
+				<reportElement x="14" y="157" width="94" height="20" uuid="1ad0b5ee-e395-4255-959d-a55e43647934"/>
 				<text><![CDATA[Số điện thoại:]]></text>
 			</staticText>
 			<textField>
-				<reportElement style="RobotoStyle" x="109" y="190" width="201" height="20" uuid="cb271003-25ea-4a1c-a2df-2fec740d72b6"/>
+				<reportElement style="RobotoStyle" x="109" y="157" width="201" height="20" uuid="cb271003-25ea-4a1c-a2df-2fec740d72b6"/>
 				<textElement>
 					<font fontName="Roboto"/>
 				</textElement>
@@ -212,9 +202,9 @@
 		<band height="20"/>
 	</columnHeader>
 	<detail>
-		<band height="200">
+		<band height="65">
 			<componentElement>
-				<reportElement x="0" y="0" width="555" height="100" uuid="29c10b2a-eeb1-4baf-a0d6-a2bd1c91f9cf">
+				<reportElement x="0" y="-10" width="555" height="60" uuid="29c10b2a-eeb1-4baf-a0d6-a2bd1c91f9cf">
 					<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.VerticalRowLayout"/>
 					<property name="com.jaspersoft.studio.table.style.table_header" value="Table 1_TH"/>
 					<property name="com.jaspersoft.studio.table.style.column_header" value="Table 1_CH"/>
@@ -236,16 +226,6 @@
 								<text><![CDATA[TÊN HÀNG]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:tableFooter style="Table 1_TH" height="30" rowSpan="1">
-							<staticText>
-								<reportElement x="0" y="0" width="290" height="30" uuid="91aacc37-d026-479d-b7ad-f38fdffc26f1"/>
-								<box padding="4"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font fontName="Roboto" isBold="true"/>
-								</textElement>
-								<text><![CDATA[Tổng]]></text>
-							</staticText>
-						</jr:tableFooter>
 						<jr:detailCell style="Table 1_TD" height="30">
 							<textField textAdjust="StretchHeight">
 								<reportElement x="0" y="0" width="290" height="30" uuid="01107823-a5de-4909-a374-b8871030af45"/>
@@ -259,13 +239,6 @@
 					</jr:column>
 					<jr:columnGroup width="260" uuid="108f6a0d-1d03-4757-a453-af8127996899">
 						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [3]"/>
-						<jr:tableFooter style="Table 1_TH" height="30" rowSpan="1">
-							<textField textAdjust="StretchHeight">
-								<reportElement x="0" y="0" width="260" height="30" uuid="a4ec9f70-c696-42f5-b8e4-1fc75e1f6b8d"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[NumberFormat.getCurrencyInstance($P{REPORT_LOCALE}).format($V{totalAmount})]]></textFieldExpression>
-							</textField>
-						</jr:tableFooter>
 						<jr:column width="60" uuid="1b0a41fc-6ad2-43ae-a297-660318b7c70b">
 							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
 							<jr:tableHeader style="Table 1_TH" height="30" rowSpan="1">
@@ -301,10 +274,9 @@
 							</jr:tableHeader>
 							<jr:detailCell style="Table 1_TD" height="30">
 								<textField>
-									<reportElement x="0" y="0" width="100" height="30" uuid="cb68d627-d1cd-4d52-8824-9b7d24bfcb4c"/>
-									<box padding="4"/>
+									<reportElement x="0" y="0" width="100" height="30" uuid="e1ed4a61-f54b-4b77-93d5-2f67fc7d00f2"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[NumberFormat.getCurrencyInstance($P{REPORT_LOCALE}).format($F{productPrice})]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{productPrice}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -321,27 +293,27 @@
 								</staticText>
 							</jr:tableHeader>
 							<jr:detailCell style="Table 1_TD" height="30">
-								<textField textAdjust="StretchHeight">
-									<reportElement x="0" y="0" width="100" height="30" uuid="02458e95-5dd6-4d45-94c6-639e7027170c"/>
-									<box padding="4"/>
+								<textField>
+									<reportElement x="0" y="0" width="100" height="30" uuid="d844d4b3-c77d-48a5-9d68-6a079b1584db"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[NumberFormat.getCurrencyInstance($P{REPORT_LOCALE}).format($F{totalPrice})]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{totalAmount}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
 					</jr:columnGroup>
 				</jr:table>
 			</componentElement>
+		</band>
+	</detail>
+	<lastPageFooter>
+		<band height="177">
 			<staticText>
-				<reportElement positionType="Float" mode="Opaque" x="-1" y="100" width="556" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="0" width="555" height="30" backcolor="#E6E8E9" uuid="36aa233d-4305-48e6-974a-1bbf89bb3c8f"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Serif" size="9" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[CẢM ƠN QUÝ KHÁCH VÀ HẸN GẶP LẠI]]></text>
 			</staticText>
 		</band>
-	</detail>
-	<lastPageFooter>
-		<band height="177"/>
 	</lastPageFooter>
 </jasperReport>

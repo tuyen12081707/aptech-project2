@@ -10,6 +10,7 @@ import aptech.project2.model.Orders;
 import aptech.project2.model.Product;
 import aptech.project2.model.Transaction;
 import aptech.project2.model.User;
+import aptech.project2.service.ExportPDFService;
 import aptech.project2.service.OrderServices;
 import aptech.project2.service.OrdersJpaController;
 import aptech.project2.service.ProductJpaController;
@@ -727,8 +728,17 @@ public class OrderMangerment extends javax.swing.JFrame {
             txtmessage.setText("Bạn chưa chọn hóa đơn!");
             txtmessage.setForeground(Color.red);
         } else {
-
-            System.out.println("IN HO CAI ANH EM OI");
+             Orders order = new Orders();
+             ExportPDFService ex = new ExportPDFService();
+             String order_no = txtorderno.getText();
+             order = OrderServices.getInstance().findOrderByOrderNo(order_no);
+            try {
+                String path = ex.requestInvoicePdf(order);
+                txtmessage.setText("Xuất hóa đơn thành công! \n" + path);
+                txtmessage.setForeground(Color.blue);
+            } catch (Exception ex1) {
+                Logger.getLogger(OrderMangerment.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         }
     }//GEN-LAST:event_btninActionPerformed
 
