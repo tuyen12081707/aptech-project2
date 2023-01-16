@@ -8,6 +8,7 @@ package aptech.project2.GUI;
 import aptech.project2.common.ValidateCommon;
 import aptech.project2.model.User;
 import aptech.project2.service.UserJpaController;
+import aptech.project2.service.UserService;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import aptech.project2.utilities.JPAUtil;
 import aptech.project2.utilities.MD5Util;
@@ -334,10 +335,11 @@ public class UserManager extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(105, 105, 105)
+                                .addGap(44, 44, 44)
                                 .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(82, 82, 82)
-                                .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(72, 72, 72)
+                                .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(103, 103, 103))
                             .addComponent(txtmessage, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -444,6 +446,7 @@ public class UserManager extends javax.swing.JFrame {
         //
         //        }
         else {
+            user.setId(userId);
             user.setUsername(newUserName);
             user.setPassword(newPassWord);
             user.setName(newName);
@@ -461,15 +464,11 @@ public class UserManager extends javax.swing.JFrame {
                 role = 1;
             }
             user.setRole(role);
+            UserService.getInstace().edit(user);
+            txtmessage.setText("Cập Nhật thành công người dùng " + user.getId());
+            txtmessage.setForeground(Color.GREEN);
             this.loadData();
-            try {
-                UserJpaController.getInstance().edit(user);
-                this.loadData();
-                txtmessage.setText("Cập Nhật thành công người dùng " + user.getId());
-                txtmessage.setForeground(Color.GREEN);
-            } catch (Exception ex) {
-                Logger.getLogger(UserManager.class.getName()).log(Level.SEVERE, null, ex);
-            }
+
         }
 
     }//GEN-LAST:event_btnupdateActionPerformed
@@ -550,6 +549,9 @@ public class UserManager extends javax.swing.JFrame {
         if (choose == 0) {
             try {
                 UserJpaController.getInstance().destroy(userId);
+                txtmessage.setText("Xoá thành công người dùng " + userId);
+                txtmessage.setForeground(Color.GREEN);
+
                 JOptionPane.showMessageDialog(null, DELETE_SUCCESS);
                 this.userId = -1;
                 this.user = null;

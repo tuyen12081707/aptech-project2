@@ -51,10 +51,11 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="btnadd" min="-2" pref="117" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                               <Component id="btndelete" min="-2" pref="116" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                               <Component id="btnupdate" min="-2" pref="115" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="103" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txtmessage" alignment="1" min="-2" pref="661" max="-2" attributes="0"/>
                       </Group>
