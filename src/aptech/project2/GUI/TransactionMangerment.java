@@ -66,8 +66,6 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblTransaction = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -92,6 +90,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
         btnupdate = new javax.swing.JButton();
         btndelete = new javax.swing.JButton();
         txtmessage = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblTransaction = new javax.swing.JTable();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,32 +106,6 @@ public class TransactionMangerment extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
-
-        tblTransaction.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "Tên Người Dùng", "Mã Hoá Đơn", "TÌnh Trạng", "Lời Nhắn"
-            }
-        ));
-        tblTransaction.setColumnSelectionAllowed(true);
-        tblTransaction.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblTransactionMouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(tblTransaction);
-        tblTransaction.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         jPanel2.setBackground(new java.awt.Color(35, 46, 66));
 
@@ -361,6 +335,24 @@ public class TransactionMangerment extends javax.swing.JFrame {
         txtmessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtmessage.setText("Giao Dịch");
 
+        tblTransaction.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Tên Người Dùng", "Mã Hoá Đơn", "Tình Trạng", "Lời Nhắn"
+            }
+        ));
+        tblTransaction.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblTransactionMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tblTransaction);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -369,22 +361,25 @@ public class TransactionMangerment extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(98, 98, 98)
-                        .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
-                        .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(220, 220, 220)
+                                .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(98, 98, 98)
+                                .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(61, 61, 61)
+                                .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(169, 169, 169)
+                                .addComponent(txtmessage, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(169, 169, 169)
-                        .addComponent(txtmessage, javax.swing.GroupLayout.PREFERRED_SIZE, 661, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1034, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -398,9 +393,9 @@ public class TransactionMangerment extends javax.swing.JFrame {
                     .addComponent(btnadd, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btndelete, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGap(31, 31, 31)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -442,14 +437,6 @@ public class TransactionMangerment extends javax.swing.JFrame {
 
         });
     }
-    private void tblTransactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTransactionMouseClicked
-        // TODO add your handling code here:
-        transactionId = Long.parseLong(tblTransaction.getModel().getValueAt(tblTransaction.getSelectedRow(), 0).toString());
-        System.out.println("-----------------------transactionID:  " + transactionId);
-        this.displayDetail(transactionId);
-
-    }//GEN-LAST:event_tblTransactionMouseClicked
-
     private void lbTransactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTransactionMouseClicked
         // TODO add your handling code here:
         TransactionMangerment mf = new TransactionMangerment();
@@ -484,7 +471,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
     }//GEN-LAST:event_it_profileMouseClicked
 
     private void btnaddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaddActionPerformed
-       Transaction transaction = new Transaction();
+        Transaction transaction = new Transaction();
 
         String userID = (String) jComboBoxUser.getSelectedItem();
         System.out.println("userId" + Integer.parseInt(userID));
@@ -523,11 +510,11 @@ public class TransactionMangerment extends javax.swing.JFrame {
         User user = UserService.getInstace().find(Integer.parseInt(userID));
         String message = txtMessage.getText();
         System.out.println("message " + message);
-        int action = jComboAction.getSelectedIndex();
+        String action = (String) jComboAction.getSelectedItem();
+        System.out.println("action----"+ action);
+        int newAction = convertActionToInt(action);
         String order = (String) jComboBoxOrder.getSelectedItem();
-        System.out.println("orderNo" + order);
         Orders o = OrderServices.getInstance().findOrderByOrderNo(order);
-        System.out.println("orderId " + o);
 
         if (message == "" || message.trim().equals("")) {
             txtmessage.setText("Lời Nhắn không được để trống!");
@@ -535,9 +522,10 @@ public class TransactionMangerment extends javax.swing.JFrame {
         } else {
 
             transaction.setUserId(user);
-            transaction.setAction((short) action);
+            transaction.setAction((short) newAction);
             transaction.setMessage(message);
             transaction.setOrderId(o);
+            
             TransactionService.getInstance().edit(transaction);
             loadData();
             txtmessage.setText("Cập nhật thành công giao dịch: " + transaction.getId());
@@ -574,6 +562,15 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private void jComboActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboActionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboActionActionPerformed
+
+    private void tblTransactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblTransactionMouseClicked
+
+        transactionId = Long.parseLong(tblTransaction.getModel().getValueAt(tblTransaction.getSelectedRow(), 0).toString());
+
+        System.out.println("-----------------------transacionID: " + transactionId);
+
+        this.displayDetail(transactionId);
+    }//GEN-LAST:event_tblTransactionMouseClicked
 
     private String selectAction(int actionId) {
         String action = "";
@@ -654,8 +651,8 @@ public class TransactionMangerment extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lbAction;
     private javax.swing.JLabel lbAction1;
     private javax.swing.JLabel lbOrder;
