@@ -47,19 +47,16 @@
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
                               <Component id="btnadd" min="-2" pref="117" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
                               <Component id="btndelete" min="-2" pref="116" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                               <Component id="btnupdate" min="-2" pref="115" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="txtmessage" min="-2" pref="661" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="txtmessage" alignment="1" min="-2" pref="661" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -367,6 +364,7 @@
               <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                 <LineBorder/>
               </Border>
+              <Font PropertyName="font" name="Times New Roman" size="24" style="1"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -377,7 +375,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
                               <Component id="jLabel5" alignment="1" max="32767" attributes="0"/>
@@ -386,13 +384,11 @@
                               <Component id="jLabel2" alignment="1" pref="98" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="txtPassword" alignment="0" pref="493" max="32767" attributes="0"/>
-                                  <Component id="txtName" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="txtUserName" max="32767" attributes="0"/>
-                              </Group>
-                              <Component id="txtEmail" alignment="0" min="-2" pref="493" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="txtPassword" alignment="0" pref="479" max="32767" attributes="0"/>
+                              <Component id="txtName" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtEmail" max="32767" attributes="0"/>
+                              <Component id="txtUserName" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -402,11 +398,8 @@
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txtPhone" max="32767" attributes="0"/>
-                              <Group type="102" attributes="0">
-                                  <Component id="jComboRole" min="-2" pref="90" max="-2" attributes="0"/>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="jComboRole" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="txtPhone" min="-2" pref="473" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -427,20 +420,20 @@
                       <Component id="jLabel3" min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="txtPassword" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jLabel4" min="-2" pref="44" max="-2" attributes="0"/>
                       <Component id="txtName" alignment="0" min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel5" min="-2" pref="52" max="-2" attributes="0"/>
-                      <Component id="txtEmail" alignment="0" min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel5" alignment="3" min="-2" pref="52" max="-2" attributes="0"/>
+                      <Component id="txtEmail" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtPhone" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
-                      <Component id="jLabel7" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="jLabel7" min="-2" pref="51" max="-2" attributes="0"/>
+                      <Component id="txtPhone" min="-2" pref="42" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
