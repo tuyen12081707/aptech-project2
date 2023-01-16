@@ -29,7 +29,7 @@ public class ValidateCommon {
 
     public static boolean isValidPassword(String password) throws PatternSyntaxException {
         validateNullObject(password, "Password");
-        String regex = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{6,}$";
+        String regex = "^(?=.*?[A-Za-z])(?=.*\\d)(?=.*[@!#$%^&*?])[A-za-z\\d@$!]{8,}$";
         Pattern p = Pattern.compile(regex);
         Matcher m = p.matcher(password);
         return m.matches();
