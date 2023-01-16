@@ -10,10 +10,8 @@ import aptech.project2.model.Product;
 import aptech.project2.service.CatalogJpaController;
 import aptech.project2.service.ProductJpaController;
 import aptech.project2.service.exceptions.NonexistentEntityException;
-import com.sun.org.apache.bcel.internal.generic.AALOAD;
 import java.awt.Color;
 import java.awt.Image;
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +19,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,10 +30,6 @@ import javax.swing.JOptionPane;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
