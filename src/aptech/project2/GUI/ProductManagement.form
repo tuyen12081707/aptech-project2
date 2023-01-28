@@ -20,9 +20,6 @@
     <Container class="javax.swing.JFrame" name="ImportTable">
       <Properties>
         <Property name="defaultCloseOperation" type="int" value="2"/>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[794, 300]"/>
-        </Property>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[794, 300]"/>
         </Property>
