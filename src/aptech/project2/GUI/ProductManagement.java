@@ -14,19 +14,20 @@ import java.awt.Color;
 import java.awt.Image;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -122,7 +123,6 @@ public class ProductManagement extends javax.swing.JFrame {
         );
 
         ImportTable.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        ImportTable.setMaximumSize(new java.awt.Dimension(794, 300));
         ImportTable.setMinimumSize(new java.awt.Dimension(794, 300));
 
         tblimport.setModel(new javax.swing.table.DefaultTableModel(
@@ -613,11 +613,20 @@ public class ProductManagement extends javax.swing.JFrame {
         } else if (price == "" || price.trim().equals("")) {
             txtmessage.setText("giá không được để trống!");
             txtmessage.setForeground(Color.red);
+        } else if (!validate(price, "^[0-9]+")) {
+            txtmessage.setText("giá phải là số!");
+            txtmessage.setForeground(Color.red);
         } else if (quantity == "" || quantity.trim().equals("")) {
             txtmessage.setText("số lượng không được để trống!");
             txtmessage.setForeground(Color.red);
+        } else if (!validate(quantity, "[0-9]+")) {
+            txtmessage.setText("số lượng phải là số!");
+            txtmessage.setForeground(Color.red);
         } else if (discount == "" || discount.trim().equals("")) {
             txtmessage.setText("chiết khấu không được để trống!");
+            txtmessage.setForeground(Color.red);
+        } else if (!validate(discount, "[0-9]+")) {
+            txtmessage.setText("chiết khấu phải là số!");
             txtmessage.setForeground(Color.red);
         } else if (image == "" || image.trim().equals("")) {
             txtmessage.setText("hình ảnh không được để trống!");
@@ -665,11 +674,20 @@ public class ProductManagement extends javax.swing.JFrame {
         } else if (price == "" || price.trim().equals("")) {
             txtmessage.setText("giá không được để trống!");
             txtmessage.setForeground(Color.red);
+        } else if (!validate(price, "^[0-9]+")) {
+            txtmessage.setText("giá phải là số!");
+            txtmessage.setForeground(Color.red);
         } else if (quantity == "" || quantity.trim().equals("")) {
             txtmessage.setText("số lượng không được để trống!");
             txtmessage.setForeground(Color.red);
+        } else if (!validate(quantity, "[0-9]+")) {
+            txtmessage.setText("số lượng phải là số!");
+            txtmessage.setForeground(Color.red);
         } else if (discount == "" || discount.trim().equals("")) {
             txtmessage.setText("chiết khấu không được để trống!");
+            txtmessage.setForeground(Color.red);
+        } else if (!validate(discount, "[0-9]+")) {
+            txtmessage.setText("chiết khấu phải là số!");
             txtmessage.setForeground(Color.red);
         } else if (image == "" || image.trim().equals("")) {
             txtmessage.setText("hình ảnh không được để trống!");
@@ -758,12 +776,11 @@ public class ProductManagement extends javax.swing.JFrame {
                     }
 
                     Object[] rowData = new Object[]{
-                        p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getDiscount(), p.getImage(), statusString, p.getCatalogId().getName()
+                        p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getDiscount(), p.getImage(), statusString, p.getCatalogId().getName()
 
                     };
                     tableModel.addRow(rowData);
                 });
-
             } catch (IOException ex) {
                 Logger.getLogger(ProductManagement.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -773,7 +790,7 @@ public class ProductManagement extends javax.swing.JFrame {
     private void tblproductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblproductMouseClicked
 
         productID = Integer.parseInt(tblproduct.getModel().getValueAt(tblproduct.getSelectedRow(), 0).toString());
-
+        System.out.println(productID);
         this.displayDetail(productID);
     }//GEN-LAST:event_tblproductMouseClicked
 
@@ -850,7 +867,7 @@ public class ProductManagement extends javax.swing.JFrame {
             newProduct.setStatus((short) 0);
         } else if ("Out of stock".equals(statusString)) {
             newProduct.setStatus((short) 1);
-        } else if (statusString == "Stop producing") {
+        } else if ("Stop producing".equals(statusString)) {
             newProduct.setStatus((short) 2);
         } else {
             newProduct.setStatus((short) 3);
@@ -877,7 +894,7 @@ public class ProductManagement extends javax.swing.JFrame {
                     newProduct.setStatus((short) 0);
                 } else if ("Out of stock".equals(statusString)) {
                     newProduct.setStatus((short) 1);
-                } else if (statusString == "Stop producing") {
+                } else if ("Stop producing".equals(statusString)) {
                     newProduct.setStatus((short) 2);
                 } else {
                     newProduct.setStatus((short) 3);
@@ -987,9 +1004,7 @@ public class ProductManagement extends javax.swing.JFrame {
 
     private void loadData() {
         List<Product> products = ProductJpaController.getInstance().findProductEntities();
-
         DefaultTableModel tableModel = (DefaultTableModel) tblproduct.getModel();
-
         tableModel.setRowCount(0);
         products.forEach(p -> {
             int status = p.getStatus();
@@ -1025,4 +1040,12 @@ public class ProductManagement extends javax.swing.JFrame {
         jComboBoxStatus.addItem("Stop producing");
         jComboBoxStatus.addItem("Wait for the products");
     }
+
+    private boolean validate(String s, String regex) {
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(s);
+        return m.matches();
+    }
+
+  
 }
