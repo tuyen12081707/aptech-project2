@@ -137,7 +137,7 @@ public class ProductManagement extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tên", "Giá", "Số lượng", "Thông số", "Chiết khấu", "Hình ảnh", "Tình trạng", "Hãng"
+                "Tên", "Giá", "Số lượng", "Thông số", "Chiết khấu", "Hình ảnh", "Tình trạng", "Loại"
             }
         ));
         tblimport.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -468,7 +468,7 @@ public class ProductManagement extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên", "Giá", "Số lượng", "Thông số", "Chiết khấu", "Hình ảnh", "Tình trạng", "Hãng"
+                "ID", "Tên", "Giá", "Số lượng", "Thông số", "Chiết khấu", "Hình ảnh", "Tình trạng", "Loại"
             }
         ));
         tblproduct.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -744,7 +744,7 @@ public class ProductManagement extends javax.swing.JFrame {
                     String name = product[0];
                     int price = Integer.parseInt(product[1]);
                     int quantity = Integer.parseInt(product[2]);
-                    String content = product[3];
+                    String content = product[3].replace('|', '\n');
                     int discount = Integer.parseInt(product[4]);
                     String image = product[5];
                     String statusString = product[6];

@@ -74,7 +74,7 @@
                     <Column editable="true" title="Chi&#x1ebf;t kh&#x1ea5;u" type="java.lang.Object"/>
                     <Column editable="true" title="H&#xec;nh &#x1ea3;nh" type="java.lang.Object"/>
                     <Column editable="true" title="T&#xec;nh tr&#x1ea1;ng" type="java.lang.Object"/>
-                    <Column editable="true" title="H&#xe3;ng" type="java.lang.Object"/>
+                    <Column editable="true" title="Lo&#x1ea1;i" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -763,7 +763,7 @@
                 <Column editable="true" title="Chi&#x1ebf;t kh&#x1ea5;u" type="java.lang.Object"/>
                 <Column editable="true" title="H&#xec;nh &#x1ea3;nh" type="java.lang.Object"/>
                 <Column editable="true" title="T&#xec;nh tr&#x1ea1;ng" type="java.lang.Object"/>
-                <Column editable="true" title="H&#xe3;ng" type="java.lang.Object"/>
+                <Column editable="true" title="Lo&#x1ea1;i" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
