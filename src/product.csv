@@ -1,10 +1,10 @@
-City,529000000,4,Engine: 1.5 i-VTEC - Gear: CVT - Maximum power: 119/6.600(Hp / Rpm) - Maximum torque: 145/4.300(Nm / Rpm),31,/aptech/project2/image/products/city.jpg,Stocking,sedan
-Accord,1319000000,0,Engine: 1.5 VTEC Turbo - Gear: CVT - Maximum power: 188/5.500(Hp / Rpm) - Maximum torque: 260/1.600-5.000(Nm /Rpm),21,/aptech/project2/image/products/accord.jpg,Out of stock,sedan
-Elantra,599000000,4,Engine: Smartstream 1.6 T-GDi - Gear: 7DCT - Maximum power: 204/6000(Hp / Rpm) - Maximum torque: 8/1500-4500(Nm /Rpm),21,/aptech/project2/image/products/elantra.jpg,Stocking,sedan
-Grand I10,360000000,4,Engine: I4 - Gear: 5MT - Maximum power: 83/6000(Hp / Rpm) - Maximum torque: 114/4000(Nm /Rpm),21,/aptech/project2/image/products/grandi10.jpg,Stocking,hatchback
-Everest,1099000000,4,Engine: Single Turbo Diesel 2.0L i4 TDCi - Gear: AT 6 - Maximum power: 170/3500(Hp / Rpm) - Maximum torque: 405/1750-2500(Nm /Rpm),21,/aptech/project2/image/products/everest.jpg,Stocking,SUV
-Fortuner,1026000000,4,Engine: 2GD-FTV (2.4L) - Gear: 6MT - Maximum power: 147/3400(Hp / Rpm) - Maximum torque: 400/1600(Nm /Rpm),21,/aptech/project2/image/products/fortuner.jpg,Stocking,SUV
-K5,934000000,3,Engine: Nu 2.0 MPI - Gear: 6AT - Maximum power: 150(Hp / Rpm) - Maximum torque: 192(Nm /Rpm),21,/aptech/project2/image/products/k5.jpg,Stocking,sedan
-Ranger,659000000,3,Engine: Turbo Diesel 2.0 i4 TDCi - Gear: 6MT - Maximum power: 168/3.500(Hp / Rpm) - Maximum torque: 405/1.750-2.500(Nm /Rpm),21,/aptech/project2/image/products/ranger.jpg,Stocking,truck
-Tucson,845000000,4,Engine: I4 Smart Stream - Gear: 6AT - Maximum power: 156/6200(Hp / Rpm) - Maximum torque: 192/4000(Nm /Rpm),21,/aptech/project2/image/products/tucson.jpg,Stocking,SUV
-Santafe,1055000000,4,Engine: 1.5 VTEC Turbo - Gear: 6AT - Maximum power: 180/6000(Hp / Rpm) - Maximum torque: 232/4000(Nm /Rpm),21,/aptech/project2/image/products/santafe.jpg,Stocking,SUV
+City,529000000,4,Engine: 1.5 i-VTEC|Gear: CVT|Maximum power: 119/6.600(Hp / Rpm)|Maximum torque: 145/4.300(Nm / Rpm),31,/aptech/project2/image/products/city.jpg,Stocking,sedan
+Accord,1319000000,0,Engine: 1.5 VTEC Turbo|Gear: CVT|Maximum power: 188/5.500(Hp / Rpm)|Maximum torque: 260/1.600-5.000(Nm /Rpm),21,/aptech/project2/image/products/accord.jpg,Out of stock,sedan
+Elantra,599000000,4,Engine: Smartstream 1.6 T-GDi|Gear: 7DCT|Maximum power: 204/6000(Hp / Rpm)|Maximum torque: 8/1500-4500(Nm /Rpm),21,/aptech/project2/image/products/elantra.jpg,Stocking,sedan
+Grand I10,360000000,4,Engine: I4|Gear: 5MT|Maximum power: 83/6000(Hp / Rpm)|Maximum torque: 114/4000(Nm /Rpm),21,/aptech/project2/image/products/grandi10.jpg,Stocking,hatchback
+Everest,1099000000,4,Engine: Single Turbo Diesel 2.0L i4 TDCi|Gear: AT 6|Maximum power: 170/3500(Hp / Rpm)|Maximum torque: 405/1750-2500(Nm /Rpm),21,/aptech/project2/image/products/everest.jpg,Stocking,SUV
+Fortuner,1026000000,4,Engine: 2GD-FTV (2.4L)|Gear: 6MT|Maximum power: 147/3400(Hp / Rpm)|Maximum torque: 400/1600(Nm /Rpm),21,/aptech/project2/image/products/fortuner.jpg,Stocking,SUV
+K5,934000000,3,Engine: Nu 2.0 MPI|Gear: 6AT|Maximum power: 150(Hp / Rpm)|Maximum torque: 192(Nm /Rpm),21,/aptech/project2/image/products/k5.jpg,Stocking,sedan
+Ranger,659000000,3,Engine: Turbo Diesel 2.0 i4 TDCi|Gear: 6MT|Maximum power: 168/3.500(Hp / Rpm)|Maximum torque: 405/1.750-2.500(Nm /Rpm),21,/aptech/project2/image/products/ranger.jpg,Stocking,truck
+Tucson,845000000,4,Engine: I4 Smart Stream|Gear: 6AT|Maximum power: 156/6200(Hp / Rpm)|Maximum torque: 192/4000(Nm /Rpm),21,/aptech/project2/image/products/tucson.jpg,Stocking,SUV
+Santafe,1055000000,4,Engine: 1.5 VTEC Turbo|Gear: 6AT|Maximum power: 180/6000(Hp / Rpm)|Maximum torque: 232/4000(Nm /Rpm),21,/aptech/project2/image/products/santafe.jpg,Stocking,SUV
