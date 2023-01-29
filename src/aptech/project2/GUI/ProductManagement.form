@@ -501,7 +501,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel15" min="-2" pref="98" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jComboBoxBrand" max="32767" attributes="0"/>
+                              <Component id="jComboBoxCatalog" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="1" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
@@ -591,7 +591,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBoxBrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jComboBoxCatalog" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -677,7 +677,7 @@
                 <Property name="text" type="java.lang.String" value="H&#xe3;ng"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBoxBrand">
+            <Component class="javax.swing.JComboBox" name="jComboBoxCatalog">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>

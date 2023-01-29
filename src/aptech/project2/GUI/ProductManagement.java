@@ -12,6 +12,7 @@ import aptech.project2.service.ProductJpaController;
 import aptech.project2.service.exceptions.NonexistentEntityException;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,9 +23,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.imageio.ImageIO;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -49,7 +52,7 @@ public class ProductManagement extends javax.swing.JFrame {
     public ProductManagement() {
         initComponents();
 
-        showComboBrand();
+        showComboCatalog();
         showComboStatus();
         loadData();
 
@@ -99,7 +102,7 @@ public class ProductManagement extends javax.swing.JFrame {
         txtContent = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jComboBoxBrand = new javax.swing.JComboBox<>();
+        jComboBoxCatalog = new javax.swing.JComboBox<>();
         jComboBoxStatus = new javax.swing.JComboBox<>();
         ImageArea = new javax.swing.JPanel();
         picture = new javax.swing.JLabel();
@@ -361,7 +364,7 @@ public class ProductManagement extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxBrand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboBoxCatalog, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -428,7 +431,7 @@ public class ProductManagement extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jComboBoxBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxCatalog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -601,9 +604,9 @@ public class ProductManagement extends javax.swing.JFrame {
         String image = txtimage.getText();
         String content = txtContent.getText();
 
-        String brand = (String) jComboBoxBrand.getSelectedItem();
-        Catalog c = CatalogJpaController.getInstance().findCatalog(brand);
-        int brandId = c.getId();
+        String catalog = (String) jComboBoxCatalog.getSelectedItem();
+        Catalog c = CatalogJpaController.getInstance().findCatalog(catalog);
+        int catalogId = c.getId();
 
         int status = jComboBoxStatus.getSelectedIndex();
 
@@ -662,9 +665,9 @@ public class ProductManagement extends javax.swing.JFrame {
         String image = txtimage.getText();
         String content = txtContent.getText();
 
-        String brand = (String) jComboBoxBrand.getSelectedItem();
-        Catalog c = CatalogJpaController.getInstance().findCatalog(brand);
-        int brandId = c.getId();
+        String catalog = (String) jComboBoxCatalog.getSelectedItem();
+        Catalog c = CatalogJpaController.getInstance().findCatalog(catalog);
+        int catalogId = c.getId();
 
         int status = jComboBoxStatus.getSelectedIndex();
 
@@ -740,7 +743,7 @@ public class ProductManagement extends javax.swing.JFrame {
                     String product[] = line.split(",");
                     String name = product[0];
                     int price = Integer.parseInt(product[1]);
-                    int quantity = Integer.parseInt(product[1]);
+                    int quantity = Integer.parseInt(product[2]);
                     String content = product[3];
                     int discount = Integer.parseInt(product[4]);
                     String image = product[5];
@@ -755,8 +758,8 @@ public class ProductManagement extends javax.swing.JFrame {
                     } else {
                         status = 3;
                     }
-                    String brand = product[7];
-                    Catalog c = CatalogJpaController.getInstance().findCatalog(brand);
+                    String catalog = product[7];
+                    Catalog c = CatalogJpaController.getInstance().findCatalog(catalog);
 
                     ps.add(new Product(name, price, quantity, content, discount, image, status, c));
                 }
@@ -776,8 +779,7 @@ public class ProductManagement extends javax.swing.JFrame {
                     }
 
                     Object[] rowData = new Object[]{
-                        p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getDiscount(), p.getImage(), statusString, p.getCatalogId().getName()
-
+                        p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getDiscount(), p.getImage(), statusString, p.getCatalogId().getName()
                     };
                     tableModel.addRow(rowData);
                 });
@@ -790,7 +792,6 @@ public class ProductManagement extends javax.swing.JFrame {
     private void tblproductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblproductMouseClicked
 
         productID = Integer.parseInt(tblproduct.getModel().getValueAt(tblproduct.getSelectedRow(), 0).toString());
-        System.out.println(productID);
         this.displayDetail(productID);
     }//GEN-LAST:event_tblproductMouseClicked
 
@@ -803,21 +804,17 @@ public class ProductManagement extends javax.swing.JFrame {
         txtimage.setText(product.getImage());
         txtContent.setText(product.getContent());
         Catalog c = product.getCatalogId();
-        jComboBoxBrand.setSelectedItem(c.getName());
+        jComboBoxCatalog.setSelectedItem(c.getName());
         jComboBoxStatus.setSelectedIndex(product.getStatus());
         picture.setIcon(null);
         try {
-            // TODO add your handling code here:
-//            System.out.println("ok");
             String path = txtimage.getText();
-//            JLabel pic = new JLabel(image);
             int width = ImageArea.getWidth();
             int height = ImageArea.getHeight();
             ImageIcon image = new ImageIcon(getClass().getResource(path));
             image.setImage(image.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
             picture.setIcon(image);
-//            picture.setText(path);
-//            ImageArea.add(pic);
+            picture.setText(path);
         } catch (NullPointerException ex) {
             picture.setText("No image found");
         }
@@ -963,7 +960,7 @@ public class ProductManagement extends javax.swing.JFrame {
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnimport;
     private javax.swing.JButton btnupdate;
-    private javax.swing.JComboBox<String> jComboBoxBrand;
+    private javax.swing.JComboBox<String> jComboBoxCatalog;
     private javax.swing.JComboBox<String> jComboBoxStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1027,10 +1024,10 @@ public class ProductManagement extends javax.swing.JFrame {
         });
     }
 
-    private void showComboBrand() {
+    private void showComboCatalog() {
         List<Catalog> catalogs = CatalogJpaController.getInstance().findCatalogEntities();
         catalogs.forEach(a -> {
-            jComboBoxBrand.addItem(a.getName());
+            jComboBoxCatalog.addItem(a.getName());
         });
     }
 
@@ -1047,5 +1044,4 @@ public class ProductManagement extends javax.swing.JFrame {
         return m.matches();
     }
 
-  
 }
