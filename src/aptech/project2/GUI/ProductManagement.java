@@ -22,13 +22,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -49,7 +45,7 @@ public class ProductManagement extends javax.swing.JFrame {
     public ProductManagement() {
         initComponents();
 
-        showComboBrand();
+        showComboCatalog();
         showComboStatus();
         loadData();
 
@@ -74,9 +70,9 @@ public class ProductManagement extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lbProduct = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        lbOrder = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         lbTransaction = new javax.swing.JLabel();
@@ -99,7 +95,7 @@ public class ProductManagement extends javax.swing.JFrame {
         txtContent = new javax.swing.JTextArea();
         jLabel8 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jComboBoxBrand = new javax.swing.JComboBox<>();
+        jComboBoxCatalog = new javax.swing.JComboBox<>();
         jComboBoxStatus = new javax.swing.JComboBox<>();
         ImageArea = new javax.swing.JPanel();
         picture = new javax.swing.JLabel();
@@ -134,7 +130,7 @@ public class ProductManagement extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Tên", "Giá", "Số lượng", "Thông số", "Chiết khấu", "Hình ảnh", "Tình trạng", "Hãng"
+                "Tên", "Giá", "Số lượng", "Thông số", "Chiết khấu", "Hình ảnh", "Tình trạng", "Loại"
             }
         ));
         tblimport.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,14 +187,14 @@ public class ProductManagement extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_home.png"))); // NOI18N
         jLabel10.setText("DashBoard");
 
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel11.setForeground(java.awt.Color.lightGray);
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_product.png"))); // NOI18N
-        jLabel11.setText("Product ");
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        lbProduct.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lbProduct.setForeground(java.awt.Color.lightGray);
+        lbProduct.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbProduct.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_product.png"))); // NOI18N
+        lbProduct.setText("Product ");
+        lbProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel11MouseClicked(evt);
+                lbProductMouseClicked(evt);
             }
         });
 
@@ -208,11 +204,16 @@ public class ProductManagement extends javax.swing.JFrame {
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/logout.png"))); // NOI18N
         jLabel17.setText("Log Out");
 
-        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel12.setForeground(java.awt.Color.lightGray);
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_orders.png"))); // NOI18N
-        jLabel12.setText("Orders");
+        lbOrder.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lbOrder.setForeground(java.awt.Color.lightGray);
+        lbOrder.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbOrder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_orders.png"))); // NOI18N
+        lbOrder.setText("Orders");
+        lbOrder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbOrderMouseClicked(evt);
+            }
+        });
 
         jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel13.setForeground(java.awt.Color.lightGray);
@@ -253,14 +254,14 @@ public class ProductManagement extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -273,11 +274,11 @@ public class ProductManagement extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(22, 22, 22)
                 .addComponent(lbTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lbOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -361,7 +362,7 @@ public class ProductManagement extends javax.swing.JFrame {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBoxBrand, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboBoxCatalog, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
                             .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -428,7 +429,7 @@ public class ProductManagement extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
-                            .addComponent(jComboBoxBrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxCatalog, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -465,7 +466,7 @@ public class ProductManagement extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Tên", "Giá", "Số lượng", "Thông số", "Chiết khấu", "Hình ảnh", "Tình trạng", "Hãng"
+                "ID", "Tên", "Giá", "Số lượng", "Thông số", "Chiết khấu", "Hình ảnh", "Tình trạng", "Loại"
             }
         ));
         tblproduct.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -601,9 +602,9 @@ public class ProductManagement extends javax.swing.JFrame {
         String image = txtimage.getText();
         String content = txtContent.getText();
 
-        String brand = (String) jComboBoxBrand.getSelectedItem();
-        Catalog c = CatalogJpaController.getInstance().findCatalog(brand);
-        int brandId = c.getId();
+        String catalog = (String) jComboBoxCatalog.getSelectedItem();
+        Catalog c = CatalogJpaController.getInstance().findCatalog(catalog);
+        int catalogId = c.getId();
 
         int status = jComboBoxStatus.getSelectedIndex();
 
@@ -662,9 +663,9 @@ public class ProductManagement extends javax.swing.JFrame {
         String image = txtimage.getText();
         String content = txtContent.getText();
 
-        String brand = (String) jComboBoxBrand.getSelectedItem();
-        Catalog c = CatalogJpaController.getInstance().findCatalog(brand);
-        int brandId = c.getId();
+        String catalog = (String) jComboBoxCatalog.getSelectedItem();
+        Catalog c = CatalogJpaController.getInstance().findCatalog(catalog);
+        int catalogId = c.getId();
 
         int status = jComboBoxStatus.getSelectedIndex();
 
@@ -740,8 +741,8 @@ public class ProductManagement extends javax.swing.JFrame {
                     String product[] = line.split(",");
                     String name = product[0];
                     int price = Integer.parseInt(product[1]);
-                    int quantity = Integer.parseInt(product[1]);
-                    String content = product[3];
+                    int quantity = Integer.parseInt(product[2]);
+                    String content = product[3].replace('|', '\n');
                     int discount = Integer.parseInt(product[4]);
                     String image = product[5];
                     String statusString = product[6];
@@ -755,8 +756,8 @@ public class ProductManagement extends javax.swing.JFrame {
                     } else {
                         status = 3;
                     }
-                    String brand = product[7];
-                    Catalog c = CatalogJpaController.getInstance().findCatalog(brand);
+                    String catalog = product[7];
+                    Catalog c = CatalogJpaController.getInstance().findCatalog(catalog);
 
                     ps.add(new Product(name, price, quantity, content, discount, image, status, c));
                 }
@@ -776,8 +777,7 @@ public class ProductManagement extends javax.swing.JFrame {
                     }
 
                     Object[] rowData = new Object[]{
-                        p.getId(), p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getDiscount(), p.getImage(), statusString, p.getCatalogId().getName()
-
+                        p.getName(), p.getPrice(), p.getQuantity(), p.getContent(), p.getDiscount(), p.getImage(), statusString, p.getCatalogId().getName()
                     };
                     tableModel.addRow(rowData);
                 });
@@ -790,7 +790,6 @@ public class ProductManagement extends javax.swing.JFrame {
     private void tblproductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblproductMouseClicked
 
         productID = Integer.parseInt(tblproduct.getModel().getValueAt(tblproduct.getSelectedRow(), 0).toString());
-        System.out.println(productID);
         this.displayDetail(productID);
     }//GEN-LAST:event_tblproductMouseClicked
 
@@ -803,21 +802,17 @@ public class ProductManagement extends javax.swing.JFrame {
         txtimage.setText(product.getImage());
         txtContent.setText(product.getContent());
         Catalog c = product.getCatalogId();
-        jComboBoxBrand.setSelectedItem(c.getName());
+        jComboBoxCatalog.setSelectedItem(c.getName());
         jComboBoxStatus.setSelectedIndex(product.getStatus());
         picture.setIcon(null);
         try {
-            // TODO add your handling code here:
-//            System.out.println("ok");
             String path = txtimage.getText();
-//            JLabel pic = new JLabel(image);
             int width = ImageArea.getWidth();
             int height = ImageArea.getHeight();
             ImageIcon image = new ImageIcon(getClass().getResource(path));
             image.setImage(image.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
             picture.setIcon(image);
-//            picture.setText(path);
-//            ImageArea.add(pic);
+            picture.setText(path);
         } catch (NullPointerException ex) {
             picture.setText("No image found");
         }
@@ -825,11 +820,11 @@ public class ProductManagement extends javax.swing.JFrame {
     }
 
 
-    private void jLabel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseClicked
+    private void lbProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbProductMouseClicked
         ProductManagement productManagement = new ProductManagement();
         productManagement.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jLabel11MouseClicked
+    }//GEN-LAST:event_lbProductMouseClicked
 
     private void txtimageKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtimageKeyTyped
 
@@ -913,6 +908,12 @@ public class ProductManagement extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnaddfromcsvActionPerformed
 
+    private void lbOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbOrderMouseClicked
+        OrderMangerment orderMangerment = new OrderMangerment();
+        orderMangerment.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_lbOrderMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -963,12 +964,10 @@ public class ProductManagement extends javax.swing.JFrame {
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnimport;
     private javax.swing.JButton btnupdate;
-    private javax.swing.JComboBox<String> jComboBoxBrand;
+    private javax.swing.JComboBox<String> jComboBoxCatalog;
     private javax.swing.JComboBox<String> jComboBoxStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -988,6 +987,8 @@ public class ProductManagement extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lbOrder;
+    private javax.swing.JLabel lbProduct;
     private javax.swing.JLabel lbTransaction;
     private javax.swing.JLabel lbmessage;
     private javax.swing.JLabel picture;
@@ -1027,10 +1028,10 @@ public class ProductManagement extends javax.swing.JFrame {
         });
     }
 
-    private void showComboBrand() {
+    private void showComboCatalog() {
         List<Catalog> catalogs = CatalogJpaController.getInstance().findCatalogEntities();
         catalogs.forEach(a -> {
-            jComboBoxBrand.addItem(a.getName());
+            jComboBoxCatalog.addItem(a.getName());
         });
     }
 
@@ -1047,5 +1048,4 @@ public class ProductManagement extends javax.swing.JFrame {
         return m.matches();
     }
 
-  
 }

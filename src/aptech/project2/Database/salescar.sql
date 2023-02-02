@@ -39,9 +39,11 @@ CREATE TABLE `catalog` (
 --
 
 INSERT INTO `catalog` (`id`, `name`, `create_at`, `modifed_at`) VALUES
-(1, 'honda', '2023-01-11 13:51:06', '2023-01-23 13:51:06'),
-(2, 'mec', '2023-01-11 13:00:19', '2023-01-26 13:00:19'),
-(3, 'bmw', '2023-01-02 13:00:38', '2023-01-19 13:00:38');
+(1, 'sedan', '2023-01-11 13:51:06', '2023-01-23 13:51:06'),
+(2, 'SUV', '2023-01-11 13:00:19', '2023-01-26 13:00:19'),
+(3, 'sport', '2023-01-02 13:00:38', '2023-01-19 13:00:38'),
+(4, 'truck', '2023-01-11 13:00:19', '2023-01-26 13:00:19'),
+(5, 'hatchback', '2023-01-02 13:00:38', '2023-01-19 13:00:38');
 
 -- --------------------------------------------------------
 
@@ -105,12 +107,16 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `catalog_id`, `name`, `price`, `quantity`, `content`, `discount`, `image`, `created_at`, `modifed_at`, `status`) VALUES
-(1, 1, 'crv\r\n', 9990000, 0, 'adasd', 10, '', '2023-01-04 13:51:25', '2023-01-05 13:51:25', 0),
-(2, 1, 'civic', 1212120, 0, '21', 12, '123', '2023-01-06 13:01:14', '2023-01-13 13:01:14', 0),
-(3, 2, 'c200', 2323, 0, '12', 34, '21', '2023-01-13 13:01:48', '2023-01-03 13:01:48', 0),
-(4, 2, 'e300', 2323, 0, '12', 34, '21', '2023-01-13 13:01:48', '2023-01-03 13:01:48', 0),
-(5, 2, 'glc300', 2323, 0, '12', 34, '21', '2023-01-13 13:01:48', '2023-01-03 13:01:48', 0),
-(6, 3, 'i8', 2323, 0, '12', 34, '21', '2023-01-13 13:01:48', '2023-01-03 13:01:48', 0);
+(1, 2, 'CRV', 999000000, 2, 'Động cơ: 1.5L\r\nHộp số: CVT\r\nCông suất cực đại: 188 / 5.600 (Hp / Rpm)\r\nMô-men xoắn cực đại: 240 / 2.000 - 5.000 (Nm / Rpm)', 10, '/aptech/project2/image/products/crv.jpg', '2023-01-04 13:51:25', '2023-01-05 13:51:25', 0),
+(2, 1, 'Civic', 729000000, 3, 'Động cơ: 1.8 i-VTEC\r\nHộp số: CVT\r\nCông suất cực đại: 139/6500 (Hp / Rpm)\r\nMô-men xoắn cực đại: 174/4300 (Nm / Rpm)', 12, '/aptech/project2/image/products/civic.jpg', '2023-01-06 13:01:14', '2023-01-13 13:01:14', 0),
+(3, 1, 'C200', 1709000000, 1, 'Động cơ: I4\r\nHộp số: Tự động 9 cấp 9G-TRONIC\r\nCông suất cực đại: 204/5800-6100(Hp / Rpm)\r\nMô-men xoắn cực đại: 300/1800 – 4000(Nm / Rpm)', 34, '/aptech/project2/image/products/c200.jpg', '2023-01-13 13:01:48', '2023-01-03 13:01:48', 0),
+(4, 1, 'E300', 2000000000, 1, 'Động cơ: 2.0L Turbo\r\nHộp số: Tự động 9 cấp 9G-TRONIC\r\nCông suất cực đại: 258/6.100(Hp / Rpm)\r\nMô-men xoắn cực đại: 370/1.650-4.000(Nm / Rpm)', 34, '/aptech/project2/image/products/e300.jpg', '2023-01-13 13:01:48', '2023-01-03 13:01:48', 0),
+(5, 2, 'GLC300', 2000000000, 2, 'Động cơ: I4\r\nHộp số: Tự động 9 cấp 9G-TRONIC\r\nCông suất cực đại: 190 /6100 (Hp / Rpm)\r\nMô-men xoắn cực đại: 370 /1800 – 4000(Nm / Rpm)', 34, '/aptech/project2/image/products/glc300.jpg', '2023-01-13 13:01:48', '2023-01-03 13:01:48', 0),
+(6, 3, 'I8', 2000000000, 0, 'Động cơ: Turbo 1.5L I3\r\nHộp số: 6AT\r\nCông suất cực đại: 369Hp (tổng)\r\nMô-men xoắn cực đại: 570Nm (tổng)', 34, '/aptech/project2/image/products/i8.jpg', '2023-01-13 13:01:48', '2023-01-03 13:01:48', 1),
+(7, 1, 'Accent', 426000000, 4, 'Động cơ: I4 / 1.4L\r\nHộp số: 5AT\r\nCông suất cực đại: 100/6000 (Hp / Rpm)\r\nMô-men xoắn cực đại: 132/4000 (Nm / Rpm)', '10', '/aptech/project2/image/products/accent.jpg', current_timestamp(), current_timestamp(), 0), 
+(8, 1, 'Camry', 1000000000, 2, 'Động cơ: 6AR-FSE, 2.0l\r\nHộp số: CVT\r\nCông suất cực đại: 170/6600 (Hp / Rpm)\r\nMô-men xoắn cực đại: 206/4400-4900 (Nm / Rpm)', '12', '/aptech/project2/image/products/camry.jpg', current_timestamp(), current_timestamp(), 0), 
+(9, 1, 'Vios', 489000000, 4, 'Động cơ: 2NR-FE\r\nHộp số: MT\r\nCông suất cực đại: 106/6000 (Hp / Rpm)\r\nMô-men xoắn cực đại: 140/4200 (Nm / Rpm)', '30', '/aptech/project2/image/products/vios.jpg', current_timestamp(), current_timestamp(), 0), 
+(10, 1, 'K3', 619000000, 2, 'Động cơ: Gamma 1.6 MPI\r\nHộp số: 6MT\r\nCông suất cực đại: 126/6300 (Hp / Rpm)\r\nMô-men xoắn cực đại: 155/4850 (Nm / Rpm)', '30', '/aptech/project2/image/products/k3.jpg', current_timestamp(), current_timestamp(), 0);
 
 -- --------------------------------------------------------
 
