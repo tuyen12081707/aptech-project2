@@ -110,6 +110,11 @@ public class UserManager extends javax.swing.JFrame {
         jLabel10.setForeground(java.awt.Color.lightGray);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_home.png"))); // NOI18N
         jLabel10.setText("DashBoard");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel11.setForeground(java.awt.Color.lightGray);
@@ -565,6 +570,13 @@ public class UserManager extends javax.swing.JFrame {
     private void jComboRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboRoleActionPerformed
 
     }//GEN-LAST:event_jComboRoleActionPerformed
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        DashBoard dashBoard = new DashBoard();
+        dashBoard.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     private void displayDetail(int userId) {
         this.user = UserJpaController.getInstance().findUser(userId);

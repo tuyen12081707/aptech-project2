@@ -186,6 +186,11 @@ public class ProductManagement extends javax.swing.JFrame {
         jLabel10.setForeground(java.awt.Color.lightGray);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_home.png"))); // NOI18N
         jLabel10.setText("DashBoard");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
         lbProduct.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lbProduct.setForeground(java.awt.Color.lightGray);
@@ -913,6 +918,13 @@ public class ProductManagement extends javax.swing.JFrame {
         orderMangerment.setVisible(true);
         dispose();
     }//GEN-LAST:event_lbOrderMouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:\
+        DashBoard dashBoard = new DashBoard();
+        dashBoard.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     /**
      * @param args the command line arguments

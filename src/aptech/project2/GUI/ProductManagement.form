@@ -322,6 +322,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="DashBoard"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel10MouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lbProduct">
           <Properties>

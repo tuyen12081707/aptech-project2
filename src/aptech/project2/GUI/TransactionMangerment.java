@@ -119,6 +119,14 @@ public class TransactionMangerment extends javax.swing.JFrame {
         jLabel10.setForeground(java.awt.Color.lightGray);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_home.png"))); // NOI18N
         jLabel10.setText("DashBoard");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel10MouseEntered(evt);
+            }
+        });
 
         it_product.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         it_product.setForeground(java.awt.Color.lightGray);
@@ -512,7 +520,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
         String message = txtMessage.getText();
         System.out.println("message " + message);
         String action = (String) jComboAction.getSelectedItem();
-        System.out.println("action----"+ action);
+        System.out.println("action----" + action);
         int newAction = convertActionToInt(action);
         String order = (String) jComboBoxOrder.getSelectedItem();
         Orders o = OrderServices.getInstance().findOrderByOrderNo(order);
@@ -526,7 +534,7 @@ public class TransactionMangerment extends javax.swing.JFrame {
             transaction.setAction((short) newAction);
             transaction.setMessage(message);
             transaction.setOrderId(o);
-            
+
             TransactionService.getInstance().edit(transaction);
             loadData();
             txtmessage.setText("Cập nhật thành công giao dịch: " + transaction.getId());
@@ -572,6 +580,17 @@ public class TransactionMangerment extends javax.swing.JFrame {
 
         this.displayDetail(transactionId);
     }//GEN-LAST:event_tblTransactionMouseClicked
+
+    private void jLabel10MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel10MouseEntered
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        // TODO add your handling code here:
+        DashBoard dashBoard = new DashBoard();
+        dashBoard.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     private String selectAction(int actionId) {
         String action = "";
