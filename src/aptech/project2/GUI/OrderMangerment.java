@@ -653,7 +653,7 @@ public class OrderMangerment extends javax.swing.JFrame {
     }//GEN-LAST:event_btnaddActionPerformed
 
     private void btnupdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnupdateActionPerformed
-        Orders order = new Orders();
+//        Orders order = new Orders();
 
 //        int code = (int) Math.floor(((Math.random() * 89999999) + 10000000));
 //        String order_no = "MA_NO_" + code;
