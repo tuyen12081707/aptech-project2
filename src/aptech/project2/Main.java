@@ -5,6 +5,7 @@
  */
 package aptech.project2;
 
+import aptech.project2.GUI.Login;
 import aptech.project2.utilities.DBConnection;
 
 import java.sql.Connection;
@@ -17,10 +18,8 @@ import java.sql.SQLOutput;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        Connection conn = DBConnection.getConnection();
-        if (conn != null) {
-            System.out.println("kết nối thành công");
-        }
+        Login l = new Login();
+        l.setVisible(true);
        
     }
 
