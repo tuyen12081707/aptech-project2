@@ -224,6 +224,11 @@ public class ProductManagement extends javax.swing.JFrame {
         jLabel13.setForeground(java.awt.Color.lightGray);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_user.png"))); // NOI18N
         jLabel13.setText("Profile");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel14.setForeground(java.awt.Color.lightGray);
@@ -925,6 +930,13 @@ public class ProductManagement extends javax.swing.JFrame {
         dashBoard.setVisible(true);
         dispose();
     }//GEN-LAST:event_jLabel10MouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        // TODO add your handling code here:
+         UserManager userManager = new UserManager();
+         userManager.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
      * @param args the command line arguments

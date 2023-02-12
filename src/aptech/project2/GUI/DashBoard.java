@@ -55,7 +55,7 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        Profile = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         lbTransaction = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -114,11 +114,16 @@ public class DashBoard extends javax.swing.JFrame {
         jLabel12.setText("Orders");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 307, 113, 47));
 
-        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel13.setForeground(java.awt.Color.lightGray);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_user.png"))); // NOI18N
-        jLabel13.setText("Profile");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 435, 95, 47));
+        Profile.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        Profile.setForeground(java.awt.Color.lightGray);
+        Profile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/aptech/project2/image/ic_user.png"))); // NOI18N
+        Profile.setText("Profile");
+        Profile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ProfileMouseClicked(evt);
+            }
+        });
+        jPanel2.add(Profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 435, 95, 47));
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel14.setForeground(java.awt.Color.lightGray);
@@ -188,6 +193,13 @@ public class DashBoard extends javax.swing.JFrame {
         dashBoard.setVisible(true);
         dispose();
     }//GEN-LAST:event_jDashBoardMouseClicked
+
+    private void ProfileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProfileMouseClicked
+        // TODO add your handling code here:
+        UserManager userManager = new UserManager();
+         userManager.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_ProfileMouseClicked
 
     /**
      * @param args the command line arguments
@@ -285,11 +297,11 @@ public class DashBoard extends javax.swing.JFrame {
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Profile;
     private javax.swing.JLabel jDashBoard;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel9;
